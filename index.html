@@ -99,42 +99,40 @@
             }
 
             /* Grid ocupa todo el espacio restante.
-               gap: 8px = separación visible entre tarjetas sin desperdiciar hoja */
+               Los ítems 1fr llenan su celda solos — NO poner width/height en los divs
+               o tapan el gap. gap: 12px replica visualmente la separación de pantalla. */
             body.impresion-individual .grid-frio-g {
                 grid-template-columns: repeat(5, 1fr) !important;
                 grid-template-rows: repeat(6, 1fr) !important;
-                flex: 1 !important; width: 100% !important; height: 100% !important; gap: 8px !important;
+                flex: 1 !important; width: 100% !important; height: 100% !important; gap: 12px !important;
             }
             body.impresion-individual .grid-frio-h {
                 grid-template-columns: repeat(6, 1fr) !important;
                 grid-template-rows: repeat(6, 1fr) !important;
-                flex: 1 !important; width: 100% !important; height: 100% !important; gap: 8px !important;
+                flex: 1 !important; width: 100% !important; height: 100% !important; gap: 12px !important;
             }
             body.impresion-individual .grid-frio-i {
                 grid-template-columns: repeat(3, 1fr) !important;
                 grid-template-rows: repeat(6, 1fr) !important;
-                flex: 1 !important; width: 100% !important; height: 100% !important; gap: 8px !important;
+                flex: 1 !important; width: 100% !important; height: 100% !important; gap: 12px !important;
             }
             body.impresion-individual .grid-frio-j {
                 grid-template-columns: repeat(4, 1fr) !important;
                 grid-template-rows: repeat(5, 1fr) !important;
-                flex: 1 !important; width: 100% !important; height: 100% !important; gap: 8px !important;
+                flex: 1 !important; width: 100% !important; height: 100% !important; gap: 12px !important;
             }
 
-            /* Cada tarjeta llena su celda y respeta su borde + padding propio (p-1) */
+            /* Las tarjetas NO tienen width/height explícito: el track 1fr las dimensiona.
+               Solo aseguramos box-sizing para que border + padding no rompan la celda. */
             body.impresion-individual .cuarto-impresion.imprimir-activo .grid-frio-g > div,
             body.impresion-individual .cuarto-impresion.imprimir-activo .grid-frio-h > div,
             body.impresion-individual .cuarto-impresion.imprimir-activo .grid-frio-i > div,
             body.impresion-individual .cuarto-impresion.imprimir-activo .grid-frio-j > div {
-                width: 100% !important;
-                height: 100% !important;
                 box-sizing: border-box !important;
                 overflow: hidden !important;
-                /* No se sobreescribe el padding del card (p-1 = 4px del JS) */
             }
 
-            /* SVG ocupa el ancho total de la tarjeta; la altura es automática
-               para NO distorsionar el código de barras */
+            /* SVG: ancho total de la tarjeta, altura automática para no distorsionar */
             body.impresion-individual .cuarto-impresion.imprimir-activo svg {
                 width: 100% !important;
                 height: auto !important;
