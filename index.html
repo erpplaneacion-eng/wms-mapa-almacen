@@ -51,6 +51,16 @@
             /* Ocultar la barra lateral azul de "CUARTOS FRÍOS" al imprimir para ahorrar tinta */
             .barra-lateral-print { display: none !important; }
             .contenedor-cuartos { border: none !important; padding: 0 !important; box-shadow: none !important; margin-left: 0 !important; }
+
+            /* Estilos para impresión individual por cuarto */
+            body.impresion-individual .cuarto-impresion {
+                display: none !important;
+            }
+            body.impresion-individual .cuarto-impresion.imprimir-activo {
+                display: flex !important;
+                break-after: auto;
+                page-break-after: auto;
+            }
         }
     </style>
 </head>
@@ -84,10 +94,6 @@
         <div class="w-full lg:w-2/3 bg-white rounded-lg shadow-lg flex flex-col overflow-hidden panel-derecho">
             <div class="bg-slate-100 border-b border-slate-200 p-3 flex justify-between items-center">
                 <h2 class="font-semibold text-slate-700 text-sm uppercase tracking-wider">Visualización Gráfica</h2>
-                <button onclick="window.print()" class="botones-impresion bg-blue-600 hover:bg-blue-700 text-white text-xs px-4 py-2 rounded font-bold transition-colors flex items-center gap-2 shadow-sm">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
-                    Imprimir Mapa
-                </button>
             </div>
             
             <div class="p-8 flex-1 flex justify-center items-start overflow-auto bg-white">
@@ -103,34 +109,46 @@
                     <div class="flex flex-col gap-10 ml-8 contenedor-cuartos">
                         
                         <!-- ZONA CONGELACIÓN G -->
-                        <div class="flex border border-slate-300 p-4 relative bg-slate-50 cuarto-impresion">
-                            <div class="w-10 flex items-center justify-center mr-4">
+                        <div id="cuarto-g" class="flex border border-slate-300 p-4 relative bg-slate-50 cuarto-impresion">
+                            <div class="w-12 flex flex-col items-center justify-center mr-4 gap-6">
                                 <span class="texto-vertical text-slate-700 font-bold tracking-wider">CONGELACIÓN G</span>
+                                <button onclick="imprimirCuarto('cuarto-g')" class="botones-impresion text-blue-600 hover:text-blue-800 bg-blue-100 hover:bg-blue-200 p-2 rounded-full shadow-sm transition-colors" title="Imprimir Cuarto G">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                                </button>
                             </div>
                             <!-- El Grid donde se inyectan las cajas (layout en U) -->
                             <div id="grid-congelacion-g" class="grid-frio-g relative"></div>
                         </div>
 
                         <!-- ZONA CONGELACIÓN H -->
-                        <div class="flex border border-slate-300 p-4 relative bg-slate-50 cuarto-impresion">
-                            <div class="w-10 flex items-center justify-center mr-4">
+                        <div id="cuarto-h" class="flex border border-slate-300 p-4 relative bg-slate-50 cuarto-impresion">
+                            <div class="w-12 flex flex-col items-center justify-center mr-4 gap-6">
                                 <span class="texto-vertical text-slate-700 font-bold tracking-wider">CONGELACIÓN H</span>
+                                <button onclick="imprimirCuarto('cuarto-h')" class="botones-impresion text-blue-600 hover:text-blue-800 bg-blue-100 hover:bg-blue-200 p-2 rounded-full shadow-sm transition-colors" title="Imprimir Cuarto H">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                                </button>
                             </div>
                             <div id="grid-congelacion-h" class="grid-frio-h relative"></div>
                         </div>
 
                         <!-- ZONA REFRIGERACIÓN I -->
-                        <div class="flex border border-slate-300 p-4 relative bg-slate-50 cuarto-impresion">
-                            <div class="w-10 flex items-center justify-center mr-4">
+                        <div id="cuarto-i" class="flex border border-slate-300 p-4 relative bg-slate-50 cuarto-impresion">
+                            <div class="w-12 flex flex-col items-center justify-center mr-4 gap-6">
                                 <span class="texto-vertical text-slate-700 font-bold tracking-wider">REFRIGERACIÓN I</span>
+                                <button onclick="imprimirCuarto('cuarto-i')" class="botones-impresion text-blue-600 hover:text-blue-800 bg-blue-100 hover:bg-blue-200 p-2 rounded-full shadow-sm transition-colors" title="Imprimir Cuarto I">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                                </button>
                             </div>
                             <div id="grid-refrigeracion-i" class="grid-frio-i relative"></div>
                         </div>
 
                         <!-- ZONA REFRIGERACIÓN J -->
-                        <div class="flex border border-slate-300 p-4 relative bg-slate-50 cuarto-impresion">
-                            <div class="w-10 flex items-center justify-center mr-4">
+                        <div id="cuarto-j" class="flex border border-slate-300 p-4 relative bg-slate-50 cuarto-impresion">
+                            <div class="w-12 flex flex-col items-center justify-center mr-4 gap-6">
                                 <span class="texto-vertical text-slate-700 font-bold tracking-wider">REFRIGERACIÓN J</span>
+                                <button onclick="imprimirCuarto('cuarto-j')" class="botones-impresion text-blue-600 hover:text-blue-800 bg-blue-100 hover:bg-blue-200 p-2 rounded-full shadow-sm transition-colors" title="Imprimir Cuarto J">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                                </button>
                             </div>
                             <div id="grid-refrigeracion-j" class="grid-frio-j relative"></div>
                         </div>
@@ -375,6 +393,22 @@
             setTimeout(() => {
                 modal.classList.add('hidden');
             }, 300);
+        }
+
+        // Función para imprimir un cuarto específico
+        function imprimirCuarto(idCuarto) {
+            // Añadir clases para aislar el cuarto y ocultar el resto
+            document.body.classList.add('impresion-individual');
+            document.getElementById(idCuarto).classList.add('imprimir-activo');
+            
+            // Lanzar ventana de impresión
+            window.print();
+            
+            // Restaurar la vista original 1 segundo después
+            setTimeout(() => {
+                document.body.classList.remove('impresion-individual');
+                document.getElementById(idCuarto).classList.remove('imprimir-activo');
+            }, 1000);
         }
 
         // Generar el mapa automáticamente al cargar la página
