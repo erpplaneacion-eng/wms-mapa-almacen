@@ -26,33 +26,41 @@
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
+        /* Panel colapsable */
+        .panel-izquierdo { transition: width 0.3s ease, min-width 0.3s ease; }
+        .panel-izquierdo.colapsado { width: 44px !important; min-width: 44px !important; flex-shrink: 0; overflow: hidden; }
+        .panel-izquierdo.colapsado .contenido-panel { display: none !important; }
+        .panel-izquierdo.colapsado .titulo-panel,
+        .panel-izquierdo.colapsado .btn-actualizar { display: none !important; }
+        #icono-toggle { transition: transform 0.3s ease; }
+        .panel-izquierdo.colapsado #icono-toggle { transform: rotate(180deg); }
+
         /* Estilos optimizados para impresión */
+        @page { size: landscape; margin: 8mm; }
+
         @media print {
             body { background: white !important; }
             header, .panel-izquierdo, .botones-impresion { display: none !important; }
             .panel-derecho { width: 100% !important; max-width: 100% !important; box-shadow: none !important; border: none !important; }
             .overflow-auto { overflow: visible !important; }
             main { padding: 0 !important; }
-            /* Ajustar tamaño en impresión si es necesario */
-            .grid-frio-g, .grid-frio-h, .grid-frio-i, .grid-frio-j { gap: 8px !important; }
-            
+            .grid-frio-g, .grid-frio-h, .grid-frio-i, .grid-frio-j { gap: 6px !important; }
+
             /* Forzar salto de página para cada cuarto frío */
             .cuarto-impresion {
                 break-after: page;
                 page-break-after: always;
                 margin-bottom: 0 !important;
-                border: none !important; /* Opcional: quitar borde exterior al imprimir */
+                border: none !important;
             }
-            /* Evitar salto de página extra en el último cuarto */
             .cuarto-impresion:last-child {
                 break-after: auto;
                 page-break-after: auto;
             }
-            /* Ocultar la barra lateral azul de "CUARTOS FRÍOS" al imprimir para ahorrar tinta */
             .barra-lateral-print { display: none !important; }
             .contenedor-cuartos { border: none !important; padding: 0 !important; box-shadow: none !important; margin-left: 0 !important; }
 
-            /* Estilos para impresión individual por cuarto */
+            /* Impresión individual: el cuarto activo llena toda la página */
             body.impresion-individual .cuarto-impresion {
                 display: none !important;
             }
@@ -60,6 +68,41 @@
                 display: flex !important;
                 break-after: auto;
                 page-break-after: auto;
+                width: 100% !important;
+                height: 96vh !important;
+                padding: 4px !important;
+                box-sizing: border-box;
+            }
+            body.impresion-individual .cuarto-impresion.imprimir-activo > div:first-child {
+                flex-shrink: 0;
+            }
+            body.impresion-individual .grid-frio-g {
+                grid-template-columns: repeat(5, 1fr) !important;
+                grid-template-rows: repeat(6, 1fr) !important;
+                flex: 1 !important; width: 100% !important; height: 100% !important; gap: 5px !important;
+            }
+            body.impresion-individual .grid-frio-h {
+                grid-template-columns: repeat(6, 1fr) !important;
+                grid-template-rows: repeat(6, 1fr) !important;
+                flex: 1 !important; width: 100% !important; height: 100% !important; gap: 5px !important;
+            }
+            body.impresion-individual .grid-frio-i {
+                grid-template-columns: repeat(3, 1fr) !important;
+                grid-template-rows: repeat(6, 1fr) !important;
+                flex: 1 !important; width: 100% !important; height: 100% !important; gap: 5px !important;
+            }
+            body.impresion-individual .grid-frio-j {
+                grid-template-columns: repeat(4, 1fr) !important;
+                grid-template-rows: repeat(5, 1fr) !important;
+                flex: 1 !important; width: 100% !important; height: 100% !important; gap: 5px !important;
+            }
+            /* Escalar los SVG de los códigos de barras para llenar la celda */
+            body.impresion-individual .cuarto-impresion.imprimir-activo svg {
+                width: 100% !important;
+                height: 100% !important;
+            }
+            body.impresion-individual .cuarto-impresion.imprimir-activo [style*="grid-column"] {
+                overflow: visible !important;
             }
         }
     </style>
@@ -79,12 +122,19 @@
         <!-- Panel Izquierdo: Entrada de Datos -->
         <div class="w-full lg:w-1/3 bg-white rounded-lg shadow-lg flex flex-col overflow-hidden panel-izquierdo">
             <div class="bg-slate-800 text-white p-3 flex justify-between items-center">
-                <h2 class="font-semibold text-sm uppercase tracking-wider">Datos del Excel (JSON)</h2>
-                <button onclick="generarMapa()" class="bg-emerald-500 hover:bg-emerald-600 text-white text-xs px-3 py-1 rounded font-bold transition-colors">
-                    Actualizar Mapa
-                </button>
+                <h2 class="font-semibold text-sm uppercase tracking-wider titulo-panel">Datos del Excel (JSON)</h2>
+                <div class="flex gap-2 items-center">
+                    <button onclick="generarMapa()" class="btn-actualizar bg-emerald-500 hover:bg-emerald-600 text-white text-xs px-3 py-1 rounded font-bold transition-colors">
+                        Actualizar Mapa
+                    </button>
+                    <button onclick="togglePanel()" title="Colapsar panel" class="text-slate-300 hover:text-white hover:bg-slate-600 p-1 rounded transition-colors">
+                        <svg id="icono-toggle" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
-            <div class="p-4 flex-1 flex flex-col">
+            <div class="p-4 flex-1 flex flex-col contenido-panel">
                 <p class="text-xs text-slate-500 mb-2">Edita las coordenadas (x, y) o el bloque para ver cómo se redibuja el rack en tiempo real.</p>
                 <textarea id="datos-entrada" class="w-full flex-1 bg-slate-50 font-mono text-xs p-3 border border-slate-200 rounded focus:outline-none focus:border-blue-400 resize-none"></textarea>
             </div>
@@ -409,6 +459,12 @@
                 document.body.classList.remove('impresion-individual');
                 document.getElementById(idCuarto).classList.remove('imprimir-activo');
             }, 1000);
+        }
+
+        // Colapsar / expandir panel izquierdo
+        function togglePanel() {
+            const panel = document.querySelector('.panel-izquierdo');
+            panel.classList.toggle('colapsado');
         }
 
         // Generar el mapa automáticamente al cargar la página
