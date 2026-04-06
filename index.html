@@ -35,9 +35,17 @@
         #icono-toggle { transition: transform 0.3s ease; }
         .panel-izquierdo.colapsado #icono-toggle { transform: rotate(180deg); }
 
+        /* Logo de hoja: siempre oculto — se reemplaza por logos por cuarto */
+        #logo-hoja-print { display: none !important; }
+
+        /* Logo por cuarto: oculto en pantalla */
+        .logo-cuarto-print { display: none; }
+
         /* Estilos optimizados para impresión */
         /* 3mm: mínimo que la mayoría de impresoras pueden manejar */
         @page { size: landscape; margin: 3mm; }
+        /* Cuarto I en vertical */
+        @page cuarto-i-page { size: portrait; margin: 3mm; }
 
         @media print {
             html, body { height: 100%; margin: 0 !important; padding: 0 !important; background: white !important; }
@@ -132,6 +140,38 @@
                 overflow: hidden !important;
             }
 
+            /* Logos por cuarto: visibles en impresión, posición absoluta dentro del cuarto */
+            /* Tamaño ≈ tarjeta más grande: Cuarto J (4 cols landscape) → ~25% del ancho de hoja */
+            .logo-cuarto-print {
+                display: block !important;
+                position: absolute;
+                bottom: 6mm;
+                right: 6mm;
+                z-index: 9999;
+                width: calc(100vw / 4);
+            }
+            .logo-cuarto-print img {
+                width: 100%;
+                height: auto;
+                opacity: 0.85;
+            }
+            /* Cuarto J: logo esquina superior izquierda */
+            #cuarto-j .logo-cuarto-print {
+                bottom: auto;
+                right: auto;
+                top: 6mm;
+                left: 6mm;
+            }
+            /* Cuarto I: orientación vertical + logo centrado */
+            #cuarto-i { page: cuarto-i-page; }
+            #cuarto-i .logo-cuarto-print {
+                bottom: auto;
+                right: auto;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
             /* SVG: ancho total de la tarjeta, altura automática para no distorsionar */
             body.impresion-individual .cuarto-impresion.imprimir-activo svg {
                 width: 100% !important;
@@ -195,6 +235,7 @@
                         
                         <!-- ZONA CONGELACIÓN G -->
                         <div id="cuarto-g" class="flex border border-slate-300 p-4 relative bg-slate-50 cuarto-impresion">
+                            <div class="logo-cuarto-print"><img src="corporacion-hacia-una-valle-solidaria-logo-x2.png" alt="CHVS"></div>
                             <div class="w-12 flex flex-col items-center justify-center mr-4 gap-6">
                                 <span class="texto-vertical text-slate-700 font-bold tracking-wider">CONGELACIÓN G</span>
                                 <button onclick="imprimirCuarto('cuarto-g')" class="botones-impresion text-blue-600 hover:text-blue-800 bg-blue-100 hover:bg-blue-200 p-2 rounded-full shadow-sm transition-colors" title="Imprimir Cuarto G">
@@ -207,6 +248,7 @@
 
                         <!-- ZONA CONGELACIÓN H -->
                         <div id="cuarto-h" class="flex border border-slate-300 p-4 relative bg-slate-50 cuarto-impresion">
+                            <div class="logo-cuarto-print"><img src="corporacion-hacia-una-valle-solidaria-logo-x2.png" alt="CHVS"></div>
                             <div class="w-12 flex flex-col items-center justify-center mr-4 gap-6">
                                 <span class="texto-vertical text-slate-700 font-bold tracking-wider">CONGELACIÓN H</span>
                                 <button onclick="imprimirCuarto('cuarto-h')" class="botones-impresion text-blue-600 hover:text-blue-800 bg-blue-100 hover:bg-blue-200 p-2 rounded-full shadow-sm transition-colors" title="Imprimir Cuarto H">
@@ -218,6 +260,7 @@
 
                         <!-- ZONA REFRIGERACIÓN I -->
                         <div id="cuarto-i" class="flex border border-slate-300 p-4 relative bg-slate-50 cuarto-impresion">
+                            <div class="logo-cuarto-print"><img src="corporacion-hacia-una-valle-solidaria-logo-x2.png" alt="CHVS"></div>
                             <div class="w-12 flex flex-col items-center justify-center mr-4 gap-6">
                                 <span class="texto-vertical text-slate-700 font-bold tracking-wider">REFRIGERACIÓN I</span>
                                 <button onclick="imprimirCuarto('cuarto-i')" class="botones-impresion text-blue-600 hover:text-blue-800 bg-blue-100 hover:bg-blue-200 p-2 rounded-full shadow-sm transition-colors" title="Imprimir Cuarto I">
@@ -229,6 +272,7 @@
 
                         <!-- ZONA REFRIGERACIÓN J -->
                         <div id="cuarto-j" class="flex border border-slate-300 p-4 relative bg-slate-50 cuarto-impresion">
+                            <div class="logo-cuarto-print"><img src="corporacion-hacia-una-valle-solidaria-logo-x2.png" alt="CHVS"></div>
                             <div class="w-12 flex flex-col items-center justify-center mr-4 gap-6">
                                 <span class="texto-vertical text-slate-700 font-bold tracking-wider">REFRIGERACIÓN J</span>
                                 <button onclick="imprimirCuarto('cuarto-j')" class="botones-impresion text-blue-600 hover:text-blue-800 bg-blue-100 hover:bg-blue-200 p-2 rounded-full shadow-sm transition-colors" title="Imprimir Cuarto J">
@@ -245,6 +289,11 @@
         </div>
 
     </main>
+
+    <!-- Logo para impresión (esquina inferior derecha de la hoja) -->
+    <div id="logo-hoja-print">
+        <img src="corporacion-hacia-una-valle-solidaria-logo-x2.png" alt="Corporación Hacia un Valle Solidario">
+    </div>
 
     <!-- Modal para código de barras ampliado (Para escanear con celular) -->
     <div id="modal-barcode" class="fixed inset-0 bg-black/80 hidden z-50 flex items-center justify-center p-4 opacity-0 transition-opacity duration-300 backdrop-blur-sm" onclick="cerrarModal()">
@@ -375,7 +424,7 @@
                 datos.forEach(item => {
                     // Crear el elemento visual (la caja tipo etiqueta)
                     const caja = document.createElement('div');
-                    caja.className = 'bg-white flex items-center justify-center border-2 border-[#175e82] shadow-sm hover:bg-slate-100 cursor-pointer transition-colors rounded p-1 overflow-hidden';
+                    caja.className = 'bg-white relative flex items-center justify-center border-2 border-emerald-600 shadow-sm hover:bg-slate-100 cursor-pointer transition-colors rounded p-1 overflow-hidden';
                     caja.title = `Ubicación: ${item.codigo} | Nivel: ${item.y} | Columna: ${item.x}`;
 
                     // Crear el contenedor SVG donde se dibujará el código de barras
@@ -403,6 +452,13 @@
 
                     caja.style.gridColumn = columnaPantalla;
                     caja.style.gridRow = filaPantalla;
+
+                    // Logo en esquina inferior derecha
+                    const logo = document.createElement('img');
+                    logo.src = 'corporacion-hacia-una-valle-solidaria-logo-x2.png';
+                    logo.alt = 'CHVS';
+                    logo.style.cssText = 'position:absolute;bottom:2px;right:2px;width:28px;height:auto;opacity:0.75;pointer-events:none;';
+                    caja.appendChild(logo);
 
                     // Agregar evento click para abrir el código en grande
                     caja.onclick = () => abrirModal(item.codigo, item.zona, item.y, item.x);
