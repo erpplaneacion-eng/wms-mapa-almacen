@@ -238,8 +238,8 @@ function generarMapa() {
             const celdas = Array.from(gridOriginal.children);
             if (!celdas.length) return false;
 
-            const maxColsPorPagina = 5;
-            const maxFilasPorPagina = 5;
+            const maxColsPorPagina = 4;
+            const maxFilasPorPagina = 4;
             const maxColumna = celdas.reduce((maximo, celda) => {
                 const columna = parseInt(celda.style.gridColumn, 10) || 1;
                 return Math.max(maximo, columna);
@@ -256,9 +256,8 @@ function generarMapa() {
             const logoSrc = logoFuente ? logoFuente.getAttribute('src') : '';
             const logoAlt = logoFuente ? logoFuente.getAttribute('alt') || 'Logo' : 'Logo';
 
-            // CompactaciÃ³n por lotes de 25 (5x5) para reducir pÃ¡ginas sin cambiar el formato de impresiÃ³n.
-            // K: 32 -> 2 pÃ¡ginas, L: 78 -> 4 pÃ¡ginas, M: 70 -> 3 pÃ¡ginas.
-            if (['cuarto-k', 'cuarto-l', 'cuarto-m'].includes(idCuarto)) {
+            // CompactaciÃ³n por lotes de 20 (5x4) para tarjetas mÃ¡s grandes.
+            if (['cuarto-k', 'cuarto-l', 'cuarto-m', 'cuarto-n'].includes(idCuarto)) {
                 const celdasOrdenadas = [...celdas].sort((a, b) => {
                     const filaA = parseInt(a.style.gridRow, 10) || 1;
                     const filaB = parseInt(b.style.gridRow, 10) || 1;
@@ -268,7 +267,7 @@ function generarMapa() {
                     return colA - colB;
                 });
 
-                const tamPagina = 25;
+                const tamPagina = maxColsPorPagina * maxFilasPorPagina;
                 for (let inicio = 0; inicio < celdasOrdenadas.length; inicio += tamPagina) {
                     const bloque = celdasOrdenadas.slice(inicio, inicio + tamPagina);
                     if (!bloque.length) continue;
@@ -281,8 +280,8 @@ function generarMapa() {
 
                     bloque.forEach((celda, idx) => {
                         const copiaCelda = celda.cloneNode(true);
-                        copiaCelda.style.gridColumn = String((idx % 5) + 1);
-                        copiaCelda.style.gridRow = String(Math.floor(idx / 5) + 1);
+                        copiaCelda.style.gridColumn = String((idx % maxColsPorPagina) + 1);
+                        copiaCelda.style.gridRow = String(Math.floor(idx / maxColsPorPagina) + 1);
                         gridSegmento.appendChild(copiaCelda);
                     });
 

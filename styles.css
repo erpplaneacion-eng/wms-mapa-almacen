@@ -154,23 +154,23 @@
                 flex: 1 !important; width: 100% !important; height: 100% !important; gap: 12px !important;
             }
             body.impresion-individual .grid-frio-k {
-                grid-template-columns: repeat(5, 1fr) !important;
-                grid-template-rows: repeat(6, 1fr) !important;
+                grid-template-columns: repeat(4, 1fr) !important;
+                grid-template-rows: repeat(5, 1fr) !important;
                 flex: 1 !important; width: 100% !important; height: 100% !important; gap: 12px !important;
             }
             body.impresion-individual .grid-frio-l {
-                grid-template-columns: repeat(5, 1fr) !important;
-                grid-template-rows: repeat(6, 1fr) !important;
+                grid-template-columns: repeat(4, 1fr) !important;
+                grid-template-rows: repeat(5, 1fr) !important;
                 flex: 1 !important; width: 100% !important; height: 100% !important; gap: 12px !important;
             }
             body.impresion-individual .grid-frio-m {
-                grid-template-columns: repeat(5, 1fr) !important;
-                grid-template-rows: repeat(6, 1fr) !important;
+                grid-template-columns: repeat(4, 1fr) !important;
+                grid-template-rows: repeat(5, 1fr) !important;
                 flex: 1 !important; width: 100% !important; height: 100% !important; gap: 12px !important;
             }
             body.impresion-individual .grid-frio-n {
-                grid-template-columns: repeat(5, 1fr) !important;
-                grid-template-rows: repeat(6, 1fr) !important;
+                grid-template-columns: repeat(4, 1fr) !important;
+                grid-template-rows: repeat(5, 1fr) !important;
                 flex: 1 !important; width: 100% !important; height: 100% !important; gap: 12px !important;
             }
             body.impresion-individual #contenedor-impresion-temporal { display: block !important; }
@@ -186,8 +186,8 @@
                 display: none !important;
             }
             .logo-fila-6-print {
-                grid-column: 5;
-                grid-row: 6;
+                grid-column: 4;
+                grid-row: 5;
                 justify-self: end;
                 align-self: end;
                 width: 85%;
