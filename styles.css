@@ -14,6 +14,8 @@
         .grid-frio-l { display: grid; grid-template-columns: repeat(13, 140px); grid-template-rows: repeat(6, 95px); gap: 16px; }
         .grid-frio-m { display: grid; grid-template-columns: repeat(10, 140px); grid-template-rows: repeat(7, 95px); gap: 16px; }
         .grid-frio-n { display: grid; grid-template-columns: repeat(23, 140px); grid-template-rows: repeat(5, 95px); gap: 16px; }
+        .grid-panaderia { display: grid; grid-template-columns: repeat(7, 140px); grid-template-rows: repeat(3, 95px); gap: 16px; }
+        .grid-aseo { display: grid; grid-template-columns: repeat(7, 140px); grid-template-rows: repeat(3, 95px); gap: 16px; }
 
         /* Scrollbar personalizado para el área de texto */
         ::-webkit-scrollbar { width: 8px; }
@@ -95,7 +97,7 @@
             }
 
             .grid-frio-g, .grid-frio-h, .grid-frio-i, .grid-frio-j, .grid-frio-k,
-            .grid-frio-l, .grid-frio-m, .grid-frio-n { gap: 4px !important; }
+            .grid-frio-l, .grid-frio-m, .grid-frio-n, .grid-panaderia, .grid-aseo { gap: 4px !important; }
 
             /* Impresión general: salto de página por cuarto */
             .cuarto-impresion {
@@ -173,6 +175,16 @@
                 grid-template-rows: repeat(5, 1fr) !important;
                 flex: 1 !important; width: 100% !important; height: 100% !important; gap: 12px !important;
             }
+            body.impresion-individual .grid-panaderia {
+                grid-template-columns: repeat(4, 1fr) !important;
+                grid-template-rows: repeat(5, 1fr) !important;
+                flex: 1 !important; width: 100% !important; height: 100% !important; gap: 12px !important;
+            }
+            body.impresion-individual .grid-aseo {
+                grid-template-columns: repeat(4, 1fr) !important;
+                grid-template-rows: repeat(5, 1fr) !important;
+                flex: 1 !important; width: 100% !important; height: 100% !important; gap: 12px !important;
+            }
             body.impresion-individual #contenedor-impresion-temporal { display: block !important; }
             body.impresion-individual #contenedor-impresion-temporal .cuarto-impresion.imprimir-segmentado {
                 break-after: page !important;
@@ -209,7 +221,9 @@
             body.impresion-individual .cuarto-impresion.imprimir-activo .grid-frio-k > div,
             body.impresion-individual .cuarto-impresion.imprimir-activo .grid-frio-l > div,
             body.impresion-individual .cuarto-impresion.imprimir-activo .grid-frio-m > div,
-            body.impresion-individual .cuarto-impresion.imprimir-activo .grid-frio-n > div {
+            body.impresion-individual .cuarto-impresion.imprimir-activo .grid-frio-n > div,
+            body.impresion-individual .cuarto-impresion.imprimir-activo .grid-panaderia > div,
+            body.impresion-individual .cuarto-impresion.imprimir-activo .grid-aseo > div {
                 box-sizing: border-box !important;
                 overflow: hidden !important;
             }

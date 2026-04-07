@@ -45,6 +45,8 @@ function generarMapa() {
                 const gridPisoL = document.getElementById('grid-piso-l');
                 const gridPisoM = document.getElementById('grid-piso-m');
                 const gridPisoN = document.getElementById('grid-piso-n');
+                const gridPanaderia = document.getElementById('grid-panaderia');
+                const gridAseo = document.getElementById('grid-aseo');
 
                 // Limpiar grillas actuales
                 gridCongelacionG.innerHTML = '';
@@ -55,6 +57,8 @@ function generarMapa() {
                 gridPisoL.innerHTML = '';
                 gridPisoM.innerHTML = '';
                 gridPisoN.innerHTML = '';
+                gridPanaderia.innerHTML = '';
+                gridAseo.innerHTML = '';
 
                 datos.forEach(item => {
                     // Crear el elemento visual (la caja tipo etiqueta)
@@ -92,6 +96,9 @@ function generarMapa() {
                     } else if (item.zona === 'UBICACION_PISO_N') {
                         // 5 niveles
                         filaPantalla = 6 - item.y;
+                    } else if (['PANADERIA_FP', 'ASEO_EP'].includes(item.zona)) {
+                        // Estas zonas se dibujan de arriba hacia abajo: y=1 arriba, y=3 abajo
+                        filaPantalla = item.y;
                     } else {
                         // Racks de frente, tienen 3 niveles de alto
                         filaPantalla = 4 - item.y;
@@ -127,6 +134,10 @@ function generarMapa() {
                         gridPisoM.appendChild(caja);
                     } else if (item.zona === 'UBICACION_PISO_N') {
                         gridPisoN.appendChild(caja);
+                    } else if (item.zona === 'PANADERIA_FP') {
+                        gridPanaderia.appendChild(caja);
+                    } else if (item.zona === 'ASEO_EP') {
+                        gridAseo.appendChild(caja);
                     }
 
                     // Generar el código de barras dentro del SVG
@@ -225,7 +236,9 @@ function generarMapa() {
                 'cuarto-k': { gridId: 'grid-refrigeracion-k' },
                 'cuarto-l': { gridId: 'grid-piso-l' },
                 'cuarto-m': { gridId: 'grid-piso-m' },
-                'cuarto-n': { gridId: 'grid-piso-n' }
+                'cuarto-n': { gridId: 'grid-piso-n' },
+                'cuarto-panaderia': { gridId: 'grid-panaderia' },
+                'cuarto-aseo': { gridId: 'grid-aseo' }
             };
 
             const config = configuracion[idCuarto];
@@ -257,7 +270,7 @@ function generarMapa() {
             const logoAlt = logoFuente ? logoFuente.getAttribute('alt') || 'Logo' : 'Logo';
 
             // CompactaciÃ³n por lotes de 20 (5x4) para tarjetas mÃ¡s grandes.
-            if (['cuarto-k', 'cuarto-l', 'cuarto-m', 'cuarto-n'].includes(idCuarto)) {
+            if (['cuarto-k', 'cuarto-l', 'cuarto-m', 'cuarto-n', 'cuarto-panaderia', 'cuarto-aseo'].includes(idCuarto)) {
                 const celdasOrdenadas = [...celdas].sort((a, b) => {
                     const filaA = parseInt(a.style.gridRow, 10) || 1;
                     const filaB = parseInt(b.style.gridRow, 10) || 1;

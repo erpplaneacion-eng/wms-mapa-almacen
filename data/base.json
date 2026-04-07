@@ -516,5 +516,236 @@
         "x":  4,
         "y":  1,
         "bloque":  1
+    },
+    {
+        "zona":  "PANADERIA_FP",
+        "codigo":  "FP0101",
+        "x":  1,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "PANADERIA_FP",
+        "codigo":  "FP0201",
+        "x":  2,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "PANADERIA_FP",
+        "codigo":  "FP0301",
+        "x":  3,
+        "y":  1,
+        "bloque":  2
+    },
+    {
+        "zona":  "PANADERIA_FP",
+        "codigo":  "FP0401",
+        "x":  4,
+        "y":  1,
+        "bloque":  2
+    },
+    {
+        "zona":  "PANADERIA_FP",
+        "codigo":  "FP0501",
+        "x":  5,
+        "y":  1,
+        "bloque":  3
+    },
+    {
+        "zona":  "PANADERIA_FP",
+        "codigo":  "FP0102",
+        "x":  1,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "PANADERIA_FP",
+        "codigo":  "FP0202",
+        "x":  2,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "PANADERIA_FP",
+        "codigo":  "FP0302",
+        "x":  3,
+        "y":  2,
+        "bloque":  2
+    },
+    {
+        "zona":  "PANADERIA_FP",
+        "codigo":  "FP0402",
+        "x":  4,
+        "y":  2,
+        "bloque":  2
+    },
+    {
+        "zona":  "PANADERIA_FP",
+        "codigo":  "FP0502",
+        "x":  5,
+        "y":  2,
+        "bloque":  3
+    },
+    {
+        "zona":  "PANADERIA_FP",
+        "codigo":  "FP0103",
+        "x":  1,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "PANADERIA_FP",
+        "codigo":  "FP0203",
+        "x":  2,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "PANADERIA_FP",
+        "codigo":  "FP0303",
+        "x":  3,
+        "y":  3,
+        "bloque":  2
+    },
+    {
+        "zona":  "PANADERIA_FP",
+        "codigo":  "FP0403",
+        "x":  4,
+        "y":  3,
+        "bloque":  2
+    },
+    {
+        "zona":  "PANADERIA_FP",
+        "codigo":  "FP0503",
+        "x":  5,
+        "y":  3,
+        "bloque":  3
+    },
+    {
+        "zona":  "ASEO_EP",
+        "codigo":  "EP0101",
+        "x":  1,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "ASEO_EP",
+        "codigo":  "EP0201",
+        "x":  2,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "ASEO_EP",
+        "codigo":  "EP0301",
+        "x":  3,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "ASEO_EP",
+        "codigo":  "EP0401",
+        "x":  4,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "ASEO_EP",
+        "codigo":  "EP0501",
+        "x":  5,
+        "y":  1,
+        "bloque":  2
+    },
+    {
+        "zona":  "ASEO_EP",
+        "codigo":  "EP0601",
+        "x":  6,
+        "y":  1,
+        "bloque":  2
+    },
+    {
+        "zona":  "ASEO_EP",
+        "codigo":  "EP0102",
+        "x":  1,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "ASEO_EP",
+        "codigo":  "EP0202",
+        "x":  2,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "ASEO_EP",
+        "codigo":  "EP0302",
+        "x":  3,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "ASEO_EP",
+        "codigo":  "EP0402",
+        "x":  4,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "ASEO_EP",
+        "codigo":  "EP0502",
+        "x":  5,
+        "y":  2,
+        "bloque":  2
+    },
+    {
+        "zona":  "ASEO_EP",
+        "codigo":  "EP0602",
+        "x":  6,
+        "y":  2,
+        "bloque":  2
+    },
+    {
+        "zona":  "ASEO_EP",
+        "codigo":  "EP0103",
+        "x":  1,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "ASEO_EP",
+        "codigo":  "EP0203",
+        "x":  2,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "ASEO_EP",
+        "codigo":  "EP0303",
+        "x":  3,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "ASEO_EP",
+        "codigo":  "EP0403",
+        "x":  4,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "ASEO_EP",
+        "codigo":  "EP0503",
+        "x":  5,
+        "y":  3,
+        "bloque":  2
+    },
+    {
+        "zona":  "ASEO_EP",
+        "codigo":  "EP0603",
+        "x":  6,
+        "y":  3,
+        "bloque":  2
     }
 ]
