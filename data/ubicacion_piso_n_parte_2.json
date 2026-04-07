@@ -1,0 +1,177 @@
+[
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N0601",
+        "x":  6,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N0701",
+        "x":  7,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N0801",
+        "x":  8,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N0901",
+        "x":  9,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N1001",
+        "x":  10,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N0602",
+        "x":  6,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N0702",
+        "x":  7,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N0802",
+        "x":  8,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N0902",
+        "x":  9,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N1002",
+        "x":  10,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N0603",
+        "x":  6,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N0703",
+        "x":  7,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N0803",
+        "x":  8,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N0903",
+        "x":  9,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N1003",
+        "x":  10,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N0604",
+        "x":  6,
+        "y":  4,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N0704",
+        "x":  7,
+        "y":  4,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N0804",
+        "x":  8,
+        "y":  4,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N0904",
+        "x":  9,
+        "y":  4,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N1004",
+        "x":  10,
+        "y":  4,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N0605",
+        "x":  6,
+        "y":  5,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N0705",
+        "x":  7,
+        "y":  5,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N0805",
+        "x":  8,
+        "y":  5,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N0905",
+        "x":  9,
+        "y":  5,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N1005",
+        "x":  10,
+        "y":  5,
+        "bloque":  1
+    }
+]

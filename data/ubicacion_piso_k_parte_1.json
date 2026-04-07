@@ -1,0 +1,72 @@
+[
+    {
+        "zona":  "UBICACION_PISO_K",
+        "codigo":  "K0101",
+        "x":  1,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_K",
+        "codigo":  "K0201",
+        "x":  2,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_K",
+        "codigo":  "K0301",
+        "x":  3,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_K",
+        "codigo":  "K0401",
+        "x":  4,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_K",
+        "codigo":  "K0501",
+        "x":  5,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_K",
+        "codigo":  "K0102",
+        "x":  1,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_K",
+        "codigo":  "K0202",
+        "x":  2,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_K",
+        "codigo":  "K0302",
+        "x":  3,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_K",
+        "codigo":  "K0402",
+        "x":  4,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_K",
+        "codigo":  "K0502",
+        "x":  5,
+        "y":  2,
+        "bloque":  1
+    }
+]

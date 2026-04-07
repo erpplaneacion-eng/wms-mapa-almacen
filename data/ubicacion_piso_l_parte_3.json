@@ -1,0 +1,107 @@
+[
+    {
+        "zona":  "UBICACION_PISO_L",
+        "codigo":  "L1101",
+        "x":  11,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_L",
+        "codigo":  "L1201",
+        "x":  12,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_L",
+        "codigo":  "L1301",
+        "x":  13,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_L",
+        "codigo":  "L1102",
+        "x":  11,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_L",
+        "codigo":  "L1202",
+        "x":  12,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_L",
+        "codigo":  "L1302",
+        "x":  13,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_L",
+        "codigo":  "L1103",
+        "x":  11,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_L",
+        "codigo":  "L1203",
+        "x":  12,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_L",
+        "codigo":  "L1303",
+        "x":  13,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_L",
+        "codigo":  "L1104",
+        "x":  11,
+        "y":  4,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_L",
+        "codigo":  "L1204",
+        "x":  12,
+        "y":  4,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_L",
+        "codigo":  "L1304",
+        "x":  13,
+        "y":  4,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_L",
+        "codigo":  "L1105",
+        "x":  11,
+        "y":  5,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_L",
+        "codigo":  "L1205",
+        "x":  12,
+        "y":  5,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_L",
+        "codigo":  "L1305",
+        "x":  13,
+        "y":  5,
+        "bloque":  1
+    }
+]

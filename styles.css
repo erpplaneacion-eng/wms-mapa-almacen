@@ -1,0 +1,250 @@
+        /* Estilos personalizados para la cuadrícula y rotación de texto */
+        .texto-vertical {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+        }
+        
+        /* Clases específicas para las dimensiones de cada Cuarto Frío */
+        /* Aumentamos el ancho a 140px y alto a 95px para mejorar la lectura inicial */
+        .grid-frio-g { display: grid; grid-template-columns: repeat(5, 140px); grid-template-rows: repeat(6, 95px); gap: 16px; }
+        .grid-frio-h { display: grid; grid-template-columns: repeat(6, 140px); grid-template-rows: repeat(6, 95px); gap: 16px; }
+        .grid-frio-i { display: grid; grid-template-columns: repeat(3, 140px); grid-template-rows: repeat(6, 95px); gap: 16px; }
+        .grid-frio-j { display: grid; grid-template-columns: repeat(4, 140px); grid-template-rows: repeat(5, 95px); gap: 16px; }
+        .grid-frio-k { display: grid; grid-template-columns: repeat(16, 140px); grid-template-rows: repeat(2, 95px); gap: 16px; }
+        .grid-frio-l { display: grid; grid-template-columns: repeat(13, 140px); grid-template-rows: repeat(6, 95px); gap: 16px; }
+        .grid-frio-m { display: grid; grid-template-columns: repeat(10, 140px); grid-template-rows: repeat(7, 95px); gap: 16px; }
+        .grid-frio-n { display: grid; grid-template-columns: repeat(23, 140px); grid-template-rows: repeat(5, 95px); gap: 16px; }
+
+        /* Scrollbar personalizado para el área de texto */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Panel colapsable */
+        .panel-izquierdo { transition: width 0.3s ease, min-width 0.3s ease; }
+        .panel-izquierdo.colapsado { width: 44px !important; min-width: 44px !important; flex-shrink: 0; overflow: hidden; }
+        .panel-izquierdo.colapsado .contenido-panel { display: none !important; }
+        .panel-izquierdo.colapsado .titulo-panel,
+        .panel-izquierdo.colapsado .btn-actualizar { display: none !important; }
+        #icono-toggle { transition: transform 0.3s ease; }
+        .panel-izquierdo.colapsado #icono-toggle { transform: rotate(180deg); }
+
+        /* Logo de hoja global: no se usa */
+        #logo-hoja-print { display: none !important; }
+        /* Contenedor temporal para segmentar impresión de cuartos grandes */
+        #contenedor-impresion-temporal { display: none; }
+
+        /* Logo por cuarto: visible en pantalla y en impresión */
+        .logo-cuarto-print {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            width: 140px; /* mismo ancho que una tarjeta en pantalla */
+            z-index: 10;
+        }
+        .logo-cuarto-print img {
+            width: 100%;
+            height: auto;
+            opacity: 0.85;
+        }
+        /* Cuarto J: esquina superior izquierda */
+        #cuarto-j .logo-cuarto-print {
+            bottom: auto;
+            right: auto;
+            top: 8px;
+            left: 8px;
+        }
+        /* Cuarto I: centrado */
+        #cuarto-i .logo-cuarto-print {
+            bottom: auto;
+            right: auto;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Estilos optimizados para impresión */
+        /* 3mm: mínimo que la mayoría de impresoras pueden manejar */
+        @page { size: landscape; margin: 3mm; }
+        /* Cuarto I en vertical */
+        @page cuarto-i-page { size: portrait; margin: 3mm; }
+
+        @media print {
+            html, body { height: 100%; margin: 0 !important; padding: 0 !important; background: white !important; }
+
+            /* Ocultar todo lo que no es el mapa */
+            header,
+            .panel-izquierdo,
+            .botones-impresion,
+            .header-panel-derecho { display: none !important; }
+
+            /* El panel derecho ocupa todo */
+            .panel-derecho {
+                width: 100% !important; max-width: 100% !important;
+                box-shadow: none !important; border: none !important;
+                border-radius: 0 !important; height: 100% !important;
+            }
+
+            /* Zero al padding de TODOS los wrappers */
+            main { padding: 0 !important; margin: 0 !important; height: 100% !important; }
+            .visor-mapa { padding: 0 !important; overflow: visible !important; }
+            .contenedor-cuartos {
+                border: none !important; padding: 0 !important;
+                box-shadow: none !important; margin: 0 !important; gap: 0 !important;
+            }
+
+            .grid-frio-g, .grid-frio-h, .grid-frio-i, .grid-frio-j, .grid-frio-k,
+            .grid-frio-l, .grid-frio-m, .grid-frio-n { gap: 4px !important; }
+
+            /* Impresión general: salto de página por cuarto */
+            .cuarto-impresion {
+                break-after: page; page-break-after: always;
+                margin: 0 !important; border: none !important; padding: 4px !important;
+            }
+            .cuarto-impresion:last-child { break-after: auto; page-break-after: auto; }
+            .barra-lateral-print { display: none !important; }
+
+            /* ── IMPRESIÓN INDIVIDUAL: máximo aprovechamiento de la hoja ── */
+            body.impresion-individual .cuarto-impresion { display: none !important; }
+
+            body.impresion-individual .cuarto-impresion.imprimir-activo {
+                display: flex !important;
+                break-after: auto; page-break-after: auto;
+                /* Ocupa toda la hoja descontando solo el @page margin de 3mm */
+                width: 100vw !important;
+                height: 100vh !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                border: none !important;
+                background: white !important;
+                box-sizing: border-box;
+            }
+
+            /* Etiqueta lateral: mínima (solo el texto vertical, sin botón) */
+            body.impresion-individual .cuarto-impresion.imprimir-activo > div:first-child {
+                width: 22px !important;
+                min-width: 22px !important;
+                margin-right: 3px !important;
+                flex-shrink: 0;
+                gap: 0 !important;
+            }
+
+            /* Grid ocupa todo el espacio restante.
+               Los ítems 1fr llenan su celda solos — NO poner width/height en los divs
+               o tapan el gap. gap: 12px replica visualmente la separación de pantalla. */
+            body.impresion-individual .grid-frio-g {
+                grid-template-columns: repeat(5, 1fr) !important;
+                grid-template-rows: repeat(6, 1fr) !important;
+                flex: 1 !important; width: 100% !important; height: 100% !important; gap: 12px !important;
+            }
+            body.impresion-individual .grid-frio-h {
+                grid-template-columns: repeat(6, 1fr) !important;
+                grid-template-rows: repeat(6, 1fr) !important;
+                flex: 1 !important; width: 100% !important; height: 100% !important; gap: 12px !important;
+            }
+            body.impresion-individual .grid-frio-i {
+                grid-template-columns: repeat(3, 1fr) !important;
+                grid-template-rows: repeat(6, 1fr) !important;
+                flex: 1 !important; width: 100% !important; height: 100% !important; gap: 12px !important;
+            }
+            body.impresion-individual .grid-frio-j {
+                grid-template-columns: repeat(4, 1fr) !important;
+                grid-template-rows: repeat(5, 1fr) !important;
+                flex: 1 !important; width: 100% !important; height: 100% !important; gap: 12px !important;
+            }
+            body.impresion-individual .grid-frio-k {
+                grid-template-columns: repeat(5, 1fr) !important;
+                grid-template-rows: repeat(6, 1fr) !important;
+                flex: 1 !important; width: 100% !important; height: 100% !important; gap: 12px !important;
+            }
+            body.impresion-individual .grid-frio-l {
+                grid-template-columns: repeat(5, 1fr) !important;
+                grid-template-rows: repeat(6, 1fr) !important;
+                flex: 1 !important; width: 100% !important; height: 100% !important; gap: 12px !important;
+            }
+            body.impresion-individual .grid-frio-m {
+                grid-template-columns: repeat(5, 1fr) !important;
+                grid-template-rows: repeat(6, 1fr) !important;
+                flex: 1 !important; width: 100% !important; height: 100% !important; gap: 12px !important;
+            }
+            body.impresion-individual .grid-frio-n {
+                grid-template-columns: repeat(5, 1fr) !important;
+                grid-template-rows: repeat(6, 1fr) !important;
+                flex: 1 !important; width: 100% !important; height: 100% !important; gap: 12px !important;
+            }
+            body.impresion-individual #contenedor-impresion-temporal { display: block !important; }
+            body.impresion-individual #contenedor-impresion-temporal .cuarto-impresion.imprimir-segmentado {
+                break-after: page !important;
+                page-break-after: always !important;
+            }
+            body.impresion-individual #contenedor-impresion-temporal .cuarto-impresion.imprimir-segmentado:last-child {
+                break-after: auto !important;
+                page-break-after: auto !important;
+            }
+            body.impresion-individual #contenedor-impresion-temporal .logo-cuarto-print {
+                display: none !important;
+            }
+            .logo-fila-6-print {
+                grid-column: 5;
+                grid-row: 6;
+                justify-self: end;
+                align-self: end;
+                width: 85%;
+                max-width: 160px;
+                opacity: 0.9;
+            }
+            .logo-fila-6-print img {
+                width: 100%;
+                height: auto;
+                display: block;
+            }
+
+            /* Las tarjetas NO tienen width/height explícito: el track 1fr las dimensiona.
+               Solo aseguramos box-sizing para que border + padding no rompan la celda. */
+            body.impresion-individual .cuarto-impresion.imprimir-activo .grid-frio-g > div,
+            body.impresion-individual .cuarto-impresion.imprimir-activo .grid-frio-h > div,
+            body.impresion-individual .cuarto-impresion.imprimir-activo .grid-frio-i > div,
+            body.impresion-individual .cuarto-impresion.imprimir-activo .grid-frio-j > div,
+            body.impresion-individual .cuarto-impresion.imprimir-activo .grid-frio-k > div,
+            body.impresion-individual .cuarto-impresion.imprimir-activo .grid-frio-l > div,
+            body.impresion-individual .cuarto-impresion.imprimir-activo .grid-frio-m > div,
+            body.impresion-individual .cuarto-impresion.imprimir-activo .grid-frio-n > div {
+                box-sizing: border-box !important;
+                overflow: hidden !important;
+            }
+
+            /* En impresión el logo escala al tamaño de tarjeta de la hoja */
+            .logo-cuarto-print {
+                width: calc(100vw / 4) !important;
+                bottom: 6mm !important;
+                right: 6mm !important;
+                top: auto !important;
+                left: auto !important;
+                transform: none !important;
+            }
+            #cuarto-j .logo-cuarto-print {
+                bottom: auto !important;
+                right: auto !important;
+                top: 6mm !important;
+                left: 6mm !important;
+            }
+            /* Cuarto I: orientación vertical + logo centrado */
+            #cuarto-i { page: cuarto-i-page; }
+            #cuarto-i .logo-cuarto-print {
+                bottom: auto !important;
+                right: auto !important;
+                top: 50% !important;
+                left: 50% !important;
+                transform: translate(-50%, -50%) !important;
+            }
+
+            /* SVG: ancho total de la tarjeta, altura automática para no distorsionar */
+            body.impresion-individual .cuarto-impresion.imprimir-activo svg {
+                width: 100% !important;
+                height: auto !important;
+                max-height: 100% !important;
+                display: block !important;
+            }
+        }
+    

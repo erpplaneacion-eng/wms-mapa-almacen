@@ -1,0 +1,37 @@
+[
+    {
+        "zona":  "UBICACION_PISO_L",
+        "codigo":  "L0106",
+        "x":  1,
+        "y":  6,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_L",
+        "codigo":  "L0206",
+        "x":  2,
+        "y":  6,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_L",
+        "codigo":  "L0306",
+        "x":  3,
+        "y":  6,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_L",
+        "codigo":  "L0406",
+        "x":  4,
+        "y":  6,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_L",
+        "codigo":  "L0506",
+        "x":  5,
+        "y":  6,
+        "bloque":  1
+    }
+]

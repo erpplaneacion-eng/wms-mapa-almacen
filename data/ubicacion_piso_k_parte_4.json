@@ -1,0 +1,16 @@
+[
+    {
+        "zona":  "UBICACION_PISO_K",
+        "codigo":  "K1601",
+        "x":  16,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_K",
+        "codigo":  "K1602",
+        "x":  16,
+        "y":  2,
+        "bloque":  1
+    }
+]

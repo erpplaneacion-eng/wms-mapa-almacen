@@ -4,202 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generador de Mapa de Almacén</title>
+    <link rel="icon" type="image/png" href="corporacion-hacia-una-valle-solidaria-logo-x2.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
-    <style>
-        /* Estilos personalizados para la cuadrícula y rotación de texto */
-        .texto-vertical {
-            writing-mode: vertical-rl;
-            transform: rotate(180deg);
-        }
-        
-        /* Clases específicas para las dimensiones de cada Cuarto Frío */
-        /* Aumentamos el ancho a 140px y alto a 95px para mejorar la lectura inicial */
-        .grid-frio-g { display: grid; grid-template-columns: repeat(5, 140px); grid-template-rows: repeat(6, 95px); gap: 16px; }
-        .grid-frio-h { display: grid; grid-template-columns: repeat(6, 140px); grid-template-rows: repeat(6, 95px); gap: 16px; }
-        .grid-frio-i { display: grid; grid-template-columns: repeat(3, 140px); grid-template-rows: repeat(6, 95px); gap: 16px; }
-        .grid-frio-j { display: grid; grid-template-columns: repeat(4, 140px); grid-template-rows: repeat(5, 95px); gap: 16px; }
-
-        /* Scrollbar personalizado para el área de texto */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-
-        /* Panel colapsable */
-        .panel-izquierdo { transition: width 0.3s ease, min-width 0.3s ease; }
-        .panel-izquierdo.colapsado { width: 44px !important; min-width: 44px !important; flex-shrink: 0; overflow: hidden; }
-        .panel-izquierdo.colapsado .contenido-panel { display: none !important; }
-        .panel-izquierdo.colapsado .titulo-panel,
-        .panel-izquierdo.colapsado .btn-actualizar { display: none !important; }
-        #icono-toggle { transition: transform 0.3s ease; }
-        .panel-izquierdo.colapsado #icono-toggle { transform: rotate(180deg); }
-
-        /* Logo de hoja global: no se usa */
-        #logo-hoja-print { display: none !important; }
-
-        /* Logo por cuarto: visible en pantalla y en impresión */
-        .logo-cuarto-print {
-            position: absolute;
-            bottom: 8px;
-            right: 8px;
-            width: 140px; /* mismo ancho que una tarjeta en pantalla */
-            z-index: 10;
-        }
-        .logo-cuarto-print img {
-            width: 100%;
-            height: auto;
-            opacity: 0.85;
-        }
-        /* Cuarto J: esquina superior izquierda */
-        #cuarto-j .logo-cuarto-print {
-            bottom: auto;
-            right: auto;
-            top: 8px;
-            left: 8px;
-        }
-        /* Cuarto I: centrado */
-        #cuarto-i .logo-cuarto-print {
-            bottom: auto;
-            right: auto;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        /* Estilos optimizados para impresión */
-        /* 3mm: mínimo que la mayoría de impresoras pueden manejar */
-        @page { size: landscape; margin: 3mm; }
-        /* Cuarto I en vertical */
-        @page cuarto-i-page { size: portrait; margin: 3mm; }
-
-        @media print {
-            html, body { height: 100%; margin: 0 !important; padding: 0 !important; background: white !important; }
-
-            /* Ocultar todo lo que no es el mapa */
-            header,
-            .panel-izquierdo,
-            .botones-impresion,
-            .header-panel-derecho { display: none !important; }
-
-            /* El panel derecho ocupa todo */
-            .panel-derecho {
-                width: 100% !important; max-width: 100% !important;
-                box-shadow: none !important; border: none !important;
-                border-radius: 0 !important; height: 100% !important;
-            }
-
-            /* Zero al padding de TODOS los wrappers */
-            main { padding: 0 !important; margin: 0 !important; height: 100% !important; }
-            .visor-mapa { padding: 0 !important; overflow: visible !important; }
-            .contenedor-cuartos {
-                border: none !important; padding: 0 !important;
-                box-shadow: none !important; margin: 0 !important; gap: 0 !important;
-            }
-
-            .grid-frio-g, .grid-frio-h, .grid-frio-i, .grid-frio-j { gap: 4px !important; }
-
-            /* Impresión general: salto de página por cuarto */
-            .cuarto-impresion {
-                break-after: page; page-break-after: always;
-                margin: 0 !important; border: none !important; padding: 4px !important;
-            }
-            .cuarto-impresion:last-child { break-after: auto; page-break-after: auto; }
-            .barra-lateral-print { display: none !important; }
-
-            /* ── IMPRESIÓN INDIVIDUAL: máximo aprovechamiento de la hoja ── */
-            body.impresion-individual .cuarto-impresion { display: none !important; }
-
-            body.impresion-individual .cuarto-impresion.imprimir-activo {
-                display: flex !important;
-                break-after: auto; page-break-after: auto;
-                /* Ocupa toda la hoja descontando solo el @page margin de 3mm */
-                width: 100vw !important;
-                height: 100vh !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                border: none !important;
-                background: white !important;
-                box-sizing: border-box;
-            }
-
-            /* Etiqueta lateral: mínima (solo el texto vertical, sin botón) */
-            body.impresion-individual .cuarto-impresion.imprimir-activo > div:first-child {
-                width: 22px !important;
-                min-width: 22px !important;
-                margin-right: 3px !important;
-                flex-shrink: 0;
-                gap: 0 !important;
-            }
-
-            /* Grid ocupa todo el espacio restante.
-               Los ítems 1fr llenan su celda solos — NO poner width/height en los divs
-               o tapan el gap. gap: 12px replica visualmente la separación de pantalla. */
-            body.impresion-individual .grid-frio-g {
-                grid-template-columns: repeat(5, 1fr) !important;
-                grid-template-rows: repeat(6, 1fr) !important;
-                flex: 1 !important; width: 100% !important; height: 100% !important; gap: 12px !important;
-            }
-            body.impresion-individual .grid-frio-h {
-                grid-template-columns: repeat(6, 1fr) !important;
-                grid-template-rows: repeat(6, 1fr) !important;
-                flex: 1 !important; width: 100% !important; height: 100% !important; gap: 12px !important;
-            }
-            body.impresion-individual .grid-frio-i {
-                grid-template-columns: repeat(3, 1fr) !important;
-                grid-template-rows: repeat(6, 1fr) !important;
-                flex: 1 !important; width: 100% !important; height: 100% !important; gap: 12px !important;
-            }
-            body.impresion-individual .grid-frio-j {
-                grid-template-columns: repeat(4, 1fr) !important;
-                grid-template-rows: repeat(5, 1fr) !important;
-                flex: 1 !important; width: 100% !important; height: 100% !important; gap: 12px !important;
-            }
-
-            /* Las tarjetas NO tienen width/height explícito: el track 1fr las dimensiona.
-               Solo aseguramos box-sizing para que border + padding no rompan la celda. */
-            body.impresion-individual .cuarto-impresion.imprimir-activo .grid-frio-g > div,
-            body.impresion-individual .cuarto-impresion.imprimir-activo .grid-frio-h > div,
-            body.impresion-individual .cuarto-impresion.imprimir-activo .grid-frio-i > div,
-            body.impresion-individual .cuarto-impresion.imprimir-activo .grid-frio-j > div {
-                box-sizing: border-box !important;
-                overflow: hidden !important;
-            }
-
-            /* En impresión el logo escala al tamaño de tarjeta de la hoja */
-            .logo-cuarto-print {
-                width: calc(100vw / 4) !important;
-                bottom: 6mm !important;
-                right: 6mm !important;
-                top: auto !important;
-                left: auto !important;
-                transform: none !important;
-            }
-            #cuarto-j .logo-cuarto-print {
-                bottom: auto !important;
-                right: auto !important;
-                top: 6mm !important;
-                left: 6mm !important;
-            }
-            /* Cuarto I: orientación vertical + logo centrado */
-            #cuarto-i { page: cuarto-i-page; }
-            #cuarto-i .logo-cuarto-print {
-                bottom: auto !important;
-                right: auto !important;
-                top: 50% !important;
-                left: 50% !important;
-                transform: translate(-50%, -50%) !important;
-            }
-
-            /* SVG: ancho total de la tarjeta, altura automática para no distorsionar */
-            body.impresion-individual .cuarto-impresion.imprimir-activo svg {
-                width: 100% !important;
-                height: auto !important;
-                max-height: 100% !important;
-                display: block !important;
-            }
-        }
-    </style>
+        <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-slate-100 min-h-screen flex flex-col font-sans">
 
@@ -301,6 +109,54 @@
                             <div class="logo-cuarto-print"><img src="corporacion-hacia-una-valle-solidaria-logo-x2.png" alt="CHVS"></div>
                         </div>
 
+                        <!-- ZONA UBICACIÓN PISO L -->
+                        <div id="cuarto-l" class="flex border border-slate-300 p-4 relative bg-slate-50 cuarto-impresion">
+                            <div class="w-12 flex flex-col items-center justify-center mr-4 gap-6">
+                                <span class="texto-vertical text-slate-700 font-bold tracking-wider">UBICACIÓN PISO L</span>
+                                <button onclick="imprimirCuarto('cuarto-l')" class="botones-impresion text-blue-600 hover:text-blue-800 bg-blue-100 hover:bg-blue-200 p-2 rounded-full shadow-sm transition-colors" title="Imprimir Cuarto L">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                                </button>
+                            </div>
+                            <div id="grid-piso-l" class="grid-frio-l relative"></div>
+                            <div class="logo-cuarto-print"><img src="corporacion-hacia-una-valle-solidaria-logo-x2.png" alt="CHVS"></div>
+                        </div>
+
+                        <!-- ZONA UBICACIÓN PISO M -->
+                        <div id="cuarto-m" class="flex border border-slate-300 p-4 relative bg-slate-50 cuarto-impresion">
+                            <div class="w-12 flex flex-col items-center justify-center mr-4 gap-6">
+                                <span class="texto-vertical text-slate-700 font-bold tracking-wider">UBICACIÓN PISO M</span>
+                                <button onclick="imprimirCuarto('cuarto-m')" class="botones-impresion text-blue-600 hover:text-blue-800 bg-blue-100 hover:bg-blue-200 p-2 rounded-full shadow-sm transition-colors" title="Imprimir Cuarto M">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                                </button>
+                            </div>
+                            <div id="grid-piso-m" class="grid-frio-m relative"></div>
+                            <div class="logo-cuarto-print"><img src="corporacion-hacia-una-valle-solidaria-logo-x2.png" alt="CHVS"></div>
+                        </div>
+
+                        <!-- ZONA UBICACIÓN PISO N -->
+                        <div id="cuarto-n" class="flex border border-slate-300 p-4 relative bg-slate-50 cuarto-impresion">
+                            <div class="w-12 flex flex-col items-center justify-center mr-4 gap-6">
+                                <span class="texto-vertical text-slate-700 font-bold tracking-wider">UBICACIÓN PISO N</span>
+                                <button onclick="imprimirCuarto('cuarto-n')" class="botones-impresion text-blue-600 hover:text-blue-800 bg-blue-100 hover:bg-blue-200 p-2 rounded-full shadow-sm transition-colors" title="Imprimir Cuarto N">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                                </button>
+                            </div>
+                            <div id="grid-piso-n" class="grid-frio-n relative"></div>
+                            <div class="logo-cuarto-print"><img src="corporacion-hacia-una-valle-solidaria-logo-x2.png" alt="CHVS"></div>
+                        </div>
+
+                        <!-- ZONA UBICACIÓN PISO K -->
+                        <div id="cuarto-k" class="flex border border-slate-300 p-4 relative bg-slate-50 cuarto-impresion">
+                            <div class="w-12 flex flex-col items-center justify-center mr-4 gap-6">
+                                <span class="texto-vertical text-slate-700 font-bold tracking-wider">UBICACIÓN PISO K</span>
+                                <button onclick="imprimirCuarto('cuarto-k')" class="botones-impresion text-blue-600 hover:text-blue-800 bg-blue-100 hover:bg-blue-200 p-2 rounded-full shadow-sm transition-colors" title="Imprimir Cuarto K">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                                </button>
+                            </div>
+                            <div id="grid-refrigeracion-k" class="grid-frio-k relative"></div>
+                            <div class="logo-cuarto-print"><img src="corporacion-hacia-una-valle-solidaria-logo-x2.png" alt="CHVS"></div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -334,251 +190,10 @@
         </div>
     </div>
 
-    <script>
-        // Datos de muestra iniciales (simulando lo extraído de tu Excel)
-        const datosMuestra = [
-            // CUARTO DE CONGELACIÓN G (Vista Superior / Layout en U)
-            { zona: 'CONGELACION_G', codigo: 'G0602', x: 1, y: 6, bloque: 1 },
-            { zona: 'CONGELACION_G', codigo: 'G0601', x: 2, y: 6, bloque: 1 },
-            { zona: 'CONGELACION_G', codigo: 'G0502', x: 1, y: 5, bloque: 1 },
-            { zona: 'CONGELACION_G', codigo: 'G0501', x: 2, y: 5, bloque: 1 },
-            { zona: 'CONGELACION_G', codigo: 'G0402', x: 1, y: 4, bloque: 1 },
-            { zona: 'CONGELACION_G', codigo: 'G0401', x: 2, y: 4, bloque: 1 },
-            { zona: 'CONGELACION_G', codigo: 'G0302', x: 1, y: 3, bloque: 1 },
-            { zona: 'CONGELACION_G', codigo: 'G0301', x: 2, y: 3, bloque: 1 },
-            { zona: 'CONGELACION_G', codigo: 'G0202', x: 1, y: 2, bloque: 1 },
-            { zona: 'CONGELACION_G', codigo: 'G0201', x: 2, y: 2, bloque: 1 },
-            { zona: 'CONGELACION_G', codigo: 'G0102', x: 1, y: 1, bloque: 1 },
-            { zona: 'CONGELACION_G', codigo: 'G0101', x: 2, y: 1, bloque: 1 },
-            { zona: 'CONGELACION_G', codigo: 'G0701', x: 3, y: 6, bloque: 1 }, // Centro
-            { zona: 'CONGELACION_G', codigo: 'G0801', x: 4, y: 6, bloque: 1 },
-            { zona: 'CONGELACION_G', codigo: 'G0802', x: 5, y: 6, bloque: 1 },
-            { zona: 'CONGELACION_G', codigo: 'G0901', x: 4, y: 5, bloque: 1 },
-            { zona: 'CONGELACION_G', codigo: 'G0902', x: 5, y: 5, bloque: 1 },
-            { zona: 'CONGELACION_G', codigo: 'G1001', x: 4, y: 4, bloque: 1 },
-            { zona: 'CONGELACION_G', codigo: 'G1002', x: 5, y: 4, bloque: 1 },
-            { zona: 'CONGELACION_G', codigo: 'G1101', x: 4, y: 3, bloque: 1 },
-            { zona: 'CONGELACION_G', codigo: 'G1102', x: 5, y: 3, bloque: 1 },
-            { zona: 'CONGELACION_G', codigo: 'G1201', x: 4, y: 2, bloque: 1 },
-            { zona: 'CONGELACION_G', codigo: 'G1202', x: 5, y: 2, bloque: 1 },
-
-            // CUARTO DE CONGELACIÓN H (Vista Superior)
-            { zona: 'CONGELACION_H', codigo: 'H0602', x: 1, y: 6, bloque: 1 },
-            { zona: 'CONGELACION_H', codigo: 'H0601', x: 2, y: 6, bloque: 1 },
-            { zona: 'CONGELACION_H', codigo: 'H0502', x: 1, y: 5, bloque: 1 },
-            { zona: 'CONGELACION_H', codigo: 'H0501', x: 2, y: 5, bloque: 1 },
-            { zona: 'CONGELACION_H', codigo: 'H0402', x: 1, y: 4, bloque: 1 },
-            { zona: 'CONGELACION_H', codigo: 'H0401', x: 2, y: 4, bloque: 1 },
-            { zona: 'CONGELACION_H', codigo: 'H0302', x: 1, y: 3, bloque: 1 },
-            { zona: 'CONGELACION_H', codigo: 'H0301', x: 2, y: 3, bloque: 1 },
-            { zona: 'CONGELACION_H', codigo: 'H0202', x: 1, y: 2, bloque: 1 },
-            { zona: 'CONGELACION_H', codigo: 'H0201', x: 2, y: 2, bloque: 1 },
-            { zona: 'CONGELACION_H', codigo: 'H0102', x: 1, y: 1, bloque: 1 },
-            { zona: 'CONGELACION_H', codigo: 'H0101', x: 2, y: 1, bloque: 1 },
-            { zona: 'CONGELACION_H', codigo: 'H0701', x: 3, y: 6, bloque: 1 }, // Centro-Izquierda
-            { zona: 'CONGELACION_H', codigo: 'H0702', x: 4, y: 6, bloque: 1 }, // Centro-Derecha
-            { zona: 'CONGELACION_H', codigo: 'H0801', x: 5, y: 6, bloque: 1 },
-            { zona: 'CONGELACION_H', codigo: 'H0802', x: 6, y: 6, bloque: 1 },
-            { zona: 'CONGELACION_H', codigo: 'H0901', x: 5, y: 5, bloque: 1 },
-            { zona: 'CONGELACION_H', codigo: 'H0902', x: 6, y: 5, bloque: 1 },
-            { zona: 'CONGELACION_H', codigo: 'H1001', x: 5, y: 4, bloque: 1 },
-            { zona: 'CONGELACION_H', codigo: 'H1002', x: 6, y: 4, bloque: 1 },
-            { zona: 'CONGELACION_H', codigo: 'H1101', x: 5, y: 3, bloque: 1 },
-            { zona: 'CONGELACION_H', codigo: 'H1102', x: 6, y: 3, bloque: 1 },
-            { zona: 'CONGELACION_H', codigo: 'H1201', x: 5, y: 2, bloque: 1 },
-            { zona: 'CONGELACION_H', codigo: 'H1202', x: 6, y: 2, bloque: 1 },
-
-            // CUARTO DE REFRIGERACIÓN I (Muy Estrecho)
-            { zona: 'REFRIGERACION_I', codigo: 'I0006', x: 1, y: 6, bloque: 1 },
-            { zona: 'REFRIGERACION_I', codigo: 'I0005', x: 1, y: 5, bloque: 1 },
-            { zona: 'REFRIGERACION_I', codigo: 'I0004', x: 1, y: 4, bloque: 1 },
-            { zona: 'REFRIGERACION_I', codigo: 'I0003', x: 1, y: 3, bloque: 1 },
-            { zona: 'REFRIGERACION_I', codigo: 'I0002', x: 1, y: 2, bloque: 1 },
-            { zona: 'REFRIGERACION_I', codigo: 'I0001', x: 1, y: 1, bloque: 1 },
-            { zona: 'REFRIGERACION_I', codigo: 'I0007', x: 2, y: 6, bloque: 1 }, // Centro
-            { zona: 'REFRIGERACION_I', codigo: 'I0008', x: 3, y: 6, bloque: 1 },
-            { zona: 'REFRIGERACION_I', codigo: 'I0009', x: 3, y: 5, bloque: 1 },
-            { zona: 'REFRIGERACION_I', codigo: 'I0010', x: 3, y: 4, bloque: 1 },
-            { zona: 'REFRIGERACION_I', codigo: 'I0011', x: 3, y: 3, bloque: 1 },
-            { zona: 'REFRIGERACION_I', codigo: 'I0012', x: 3, y: 2, bloque: 1 },
-            { zona: 'REFRIGERACION_I', codigo: 'I0013', x: 3, y: 1, bloque: 1 },
-
-            // CUARTO DE REFRIGERACIÓN J (Asimétrico)
-            { zona: 'REFRIGERACION_J', codigo: 'J0104', x: 1, y: 4, bloque: 1 }, // Empieza un nivel abajo
-            { zona: 'REFRIGERACION_J', codigo: 'J0103', x: 1, y: 3, bloque: 1 },
-            { zona: 'REFRIGERACION_J', codigo: 'J0102', x: 1, y: 2, bloque: 1 },
-            { zona: 'REFRIGERACION_J', codigo: 'J0101', x: 1, y: 1, bloque: 1 },
-            { zona: 'REFRIGERACION_J', codigo: 'J0201', x: 3, y: 5, bloque: 1 },
-            { zona: 'REFRIGERACION_J', codigo: 'J0202', x: 4, y: 5, bloque: 1 },
-            { zona: 'REFRIGERACION_J', codigo: 'J0301', x: 3, y: 4, bloque: 1 },
-            { zona: 'REFRIGERACION_J', codigo: 'J0302', x: 4, y: 4, bloque: 1 },
-            { zona: 'REFRIGERACION_J', codigo: 'J0401', x: 3, y: 3, bloque: 1 },
-            { zona: 'REFRIGERACION_J', codigo: 'J0402', x: 4, y: 3, bloque: 1 },
-            { zona: 'REFRIGERACION_J', codigo: 'J0501', x: 3, y: 2, bloque: 1 },
-            { zona: 'REFRIGERACION_J', codigo: 'J0502', x: 4, y: 2, bloque: 1 },
-            { zona: 'REFRIGERACION_J', codigo: 'J0601', x: 3, y: 1, bloque: 1 },
-            { zona: 'REFRIGERACION_J', codigo: 'J0602', x: 4, y: 1, bloque: 1 }
-        ];
-
-        // Cargar los datos en el textarea al iniciar
-        document.getElementById('datos-entrada').value = JSON.stringify(datosMuestra, null, 2);
-
-        function generarMapa() {
-            try {
-                // Leer datos del textarea
-                const textoDatos = document.getElementById('datos-entrada').value;
-                const datos = JSON.parse(textoDatos);
-
-                const gridCongelacionG = document.getElementById('grid-congelacion-g');
-                const gridCongelacionH = document.getElementById('grid-congelacion-h');
-                const gridRefrigeracionI = document.getElementById('grid-refrigeracion-i');
-                const gridRefrigeracionJ = document.getElementById('grid-refrigeracion-j');
-
-                // Limpiar grillas actuales
-                gridCongelacionG.innerHTML = '';
-                gridCongelacionH.innerHTML = '';
-                gridRefrigeracionI.innerHTML = '';
-                gridRefrigeracionJ.innerHTML = '';
-
-                datos.forEach(item => {
-                    // Crear el elemento visual (la caja tipo etiqueta)
-                    const caja = document.createElement('div');
-                    caja.className = 'bg-white relative flex items-center justify-center border-2 border-emerald-600 shadow-sm hover:bg-slate-100 cursor-pointer transition-colors rounded p-1 overflow-hidden';
-                    caja.title = `Ubicación: ${item.codigo} | Nivel: ${item.y} | Columna: ${item.x}`;
-
-                    // Crear el contenedor SVG donde se dibujará el código de barras
-                    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-                    svg.style.maxWidth = '100%';
-                    svg.style.maxHeight = '100%';
-                    caja.appendChild(svg);
-
-                    // LA MAGIA DE LAS COORDENADAS MATEMÁTICAS:
-                    // 1. Calculamos la columna en la pantalla considerando los espacios vacíos por los bloques.
-                    const columnaPantalla = item.x + (item.bloque - 1); 
-                    
-                    // 2. Calculamos la fila (Nivel o Profundidad). 
-                    let filaPantalla;
-                    if (['CONGELACION_G', 'CONGELACION_H', 'REFRIGERACION_I'].includes(item.zona)) {
-                        // Tienen 6 posiciones de fondo
-                        filaPantalla = 7 - item.y;
-                    } else if (item.zona === 'REFRIGERACION_J') {
-                        // Tiene 5 posiciones de fondo, esto alinea a "J0104" un cajón más abajo automáticamente
-                        filaPantalla = 6 - item.y;
-                    } else {
-                        // Racks de frente, tienen 3 niveles de alto
-                        filaPantalla = 4 - item.y;
-                    }
-
-                    caja.style.gridColumn = columnaPantalla;
-                    caja.style.gridRow = filaPantalla;
-
-                    // Logo en esquina inferior derecha
-                    const logo = document.createElement('img');
-                    logo.src = 'corporacion-hacia-una-valle-solidaria-logo-x2.png';
-                    logo.alt = 'CHVS';
-                    logo.style.cssText = 'position:absolute;bottom:2px;right:2px;width:28px;height:auto;opacity:0.75;pointer-events:none;';
-                    caja.appendChild(logo);
-
-                    // Agregar evento click para abrir el código en grande
-                    caja.onclick = () => abrirModal(item.codigo, item.zona, item.y, item.x);
-
-                    // Insertar en la zona correcta
-                    if (item.zona === 'CONGELACION_G') {
-                        gridCongelacionG.appendChild(caja);
-                    } else if (item.zona === 'CONGELACION_H') {
-                        gridCongelacionH.appendChild(caja);
-                    } else if (item.zona === 'REFRIGERACION_I') {
-                        gridRefrigeracionI.appendChild(caja);
-                    } else if (item.zona === 'REFRIGERACION_J') {
-                        gridRefrigeracionJ.appendChild(caja);
-                    }
-
-                    // Generar el código de barras dentro del SVG
-                    JsBarcode(svg, item.codigo, {
-                        format: "CODE128", 
-                        width: 2,          // Grosor aumentado (antes 1.8)
-                        height: 40,        // Altura aumentada
-                        fontSize: 16,      
-                        fontOptions: "bold",
-                        textMargin: 2,
-                        margin: 2,
-                        displayValue: true 
-                    });
-                });
-
-            } catch (error) {
-                // Si el usuario escribe mal el JSON, mostramos una alerta visual en la interfaz en lugar de un alert bloqueante
-                console.error("Error leyendo los datos:", error);
-                const gridCongelacionG = document.getElementById('grid-congelacion-g');
-                gridCongelacionG.innerHTML = '<div class="col-span-5 text-red-500 font-bold p-4">Error de formato en los datos JSON. Revisa la sintaxis.</div>';
-            }
-        }
-
-        // Funciones para manejar el Modal (Zoom del código)
-        function abrirModal(codigo, zona, nivel, columna) {
-            const modal = document.getElementById('modal-barcode');
-            const titulo = document.getElementById('modal-title');
-            const subtitulo = document.getElementById('modal-subtitle');
-            const svg = document.getElementById('modal-svg');
-
-            titulo.innerText = codigo;
-            subtitulo.innerText = `${zona} | Nivel: ${nivel} | Col: ${columna}`;
-            
-            // Generar un código de barras de altísima resolución
-            JsBarcode(svg, codigo, {
-                format: "CODE128",
-                width: 4,          // Muy grueso para lectura fácil
-                height: 120,       // Muy alto
-                fontSize: 24,
-                fontOptions: "bold",
-                margin: 0,
-                displayValue: true
-            });
-
-            // Animación de entrada
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                modal.firstElementChild.classList.remove('scale-95');
-                modal.firstElementChild.classList.add('scale-100');
-            }, 10);
-        }
-
-        function cerrarModal() {
-            const modal = document.getElementById('modal-barcode');
-            // Animación de salida
-            modal.classList.add('opacity-0');
-            modal.firstElementChild.classList.remove('scale-100');
-            modal.firstElementChild.classList.add('scale-95');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
-        }
-
-        // Función para imprimir un cuarto específico
-        function imprimirCuarto(idCuarto) {
-            // Añadir clases para aislar el cuarto y ocultar el resto
-            document.body.classList.add('impresion-individual');
-            document.getElementById(idCuarto).classList.add('imprimir-activo');
-            
-            // Lanzar ventana de impresión
-            window.print();
-            
-            // Restaurar la vista original 1 segundo después
-            setTimeout(() => {
-                document.body.classList.remove('impresion-individual');
-                document.getElementById(idCuarto).classList.remove('imprimir-activo');
-            }, 1000);
-        }
-
-        // Colapsar / expandir panel izquierdo
-        function togglePanel() {
-            const panel = document.querySelector('.panel-izquierdo');
-            panel.classList.toggle('colapsado');
-        }
-
-        // Generar el mapa automáticamente al cargar la página
-        window.onload = generarMapa;
-    </script>
+            <script src="app.js"></script>
 </body>
 </html>
+
+
+
+

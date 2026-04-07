@@ -1,0 +1,23 @@
+[
+    {
+        "zona":  "UBICACION_PISO_L",
+        "codigo":  "L1106",
+        "x":  11,
+        "y":  6,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_L",
+        "codigo":  "L1206",
+        "x":  12,
+        "y":  6,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_L",
+        "codigo":  "L1306",
+        "x":  13,
+        "y":  6,
+        "bloque":  1
+    }
+]

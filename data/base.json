@@ -1,0 +1,520 @@
+[
+    {
+        "zona":  "CONGELACION_G",
+        "codigo":  "G0602",
+        "x":  1,
+        "y":  6,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_G",
+        "codigo":  "G0601",
+        "x":  2,
+        "y":  6,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_G",
+        "codigo":  "G0502",
+        "x":  1,
+        "y":  5,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_G",
+        "codigo":  "G0501",
+        "x":  2,
+        "y":  5,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_G",
+        "codigo":  "G0402",
+        "x":  1,
+        "y":  4,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_G",
+        "codigo":  "G0401",
+        "x":  2,
+        "y":  4,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_G",
+        "codigo":  "G0302",
+        "x":  1,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_G",
+        "codigo":  "G0301",
+        "x":  2,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_G",
+        "codigo":  "G0202",
+        "x":  1,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_G",
+        "codigo":  "G0201",
+        "x":  2,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_G",
+        "codigo":  "G0102",
+        "x":  1,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_G",
+        "codigo":  "G0101",
+        "x":  2,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_G",
+        "codigo":  "G0701",
+        "x":  3,
+        "y":  6,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_G",
+        "codigo":  "G0801",
+        "x":  4,
+        "y":  6,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_G",
+        "codigo":  "G0802",
+        "x":  5,
+        "y":  6,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_G",
+        "codigo":  "G0901",
+        "x":  4,
+        "y":  5,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_G",
+        "codigo":  "G0902",
+        "x":  5,
+        "y":  5,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_G",
+        "codigo":  "G1001",
+        "x":  4,
+        "y":  4,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_G",
+        "codigo":  "G1002",
+        "x":  5,
+        "y":  4,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_G",
+        "codigo":  "G1101",
+        "x":  4,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_G",
+        "codigo":  "G1102",
+        "x":  5,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_G",
+        "codigo":  "G1201",
+        "x":  4,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_G",
+        "codigo":  "G1202",
+        "x":  5,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_H",
+        "codigo":  "H0602",
+        "x":  1,
+        "y":  6,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_H",
+        "codigo":  "H0601",
+        "x":  2,
+        "y":  6,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_H",
+        "codigo":  "H0502",
+        "x":  1,
+        "y":  5,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_H",
+        "codigo":  "H0501",
+        "x":  2,
+        "y":  5,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_H",
+        "codigo":  "H0402",
+        "x":  1,
+        "y":  4,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_H",
+        "codigo":  "H0401",
+        "x":  2,
+        "y":  4,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_H",
+        "codigo":  "H0302",
+        "x":  1,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_H",
+        "codigo":  "H0301",
+        "x":  2,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_H",
+        "codigo":  "H0202",
+        "x":  1,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_H",
+        "codigo":  "H0201",
+        "x":  2,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_H",
+        "codigo":  "H0102",
+        "x":  1,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_H",
+        "codigo":  "H0101",
+        "x":  2,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_H",
+        "codigo":  "H0701",
+        "x":  3,
+        "y":  6,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_H",
+        "codigo":  "H0702",
+        "x":  4,
+        "y":  6,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_H",
+        "codigo":  "H0801",
+        "x":  5,
+        "y":  6,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_H",
+        "codigo":  "H0802",
+        "x":  6,
+        "y":  6,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_H",
+        "codigo":  "H0901",
+        "x":  5,
+        "y":  5,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_H",
+        "codigo":  "H0902",
+        "x":  6,
+        "y":  5,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_H",
+        "codigo":  "H1001",
+        "x":  5,
+        "y":  4,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_H",
+        "codigo":  "H1002",
+        "x":  6,
+        "y":  4,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_H",
+        "codigo":  "H1101",
+        "x":  5,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_H",
+        "codigo":  "H1102",
+        "x":  6,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_H",
+        "codigo":  "H1201",
+        "x":  5,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "CONGELACION_H",
+        "codigo":  "H1202",
+        "x":  6,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "REFRIGERACION_I",
+        "codigo":  "I0006",
+        "x":  1,
+        "y":  6,
+        "bloque":  1
+    },
+    {
+        "zona":  "REFRIGERACION_I",
+        "codigo":  "I0005",
+        "x":  1,
+        "y":  5,
+        "bloque":  1
+    },
+    {
+        "zona":  "REFRIGERACION_I",
+        "codigo":  "I0004",
+        "x":  1,
+        "y":  4,
+        "bloque":  1
+    },
+    {
+        "zona":  "REFRIGERACION_I",
+        "codigo":  "I0003",
+        "x":  1,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "REFRIGERACION_I",
+        "codigo":  "I0002",
+        "x":  1,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "REFRIGERACION_I",
+        "codigo":  "I0001",
+        "x":  1,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "REFRIGERACION_I",
+        "codigo":  "I0007",
+        "x":  2,
+        "y":  6,
+        "bloque":  1
+    },
+    {
+        "zona":  "REFRIGERACION_I",
+        "codigo":  "I0008",
+        "x":  3,
+        "y":  6,
+        "bloque":  1
+    },
+    {
+        "zona":  "REFRIGERACION_I",
+        "codigo":  "I0009",
+        "x":  3,
+        "y":  5,
+        "bloque":  1
+    },
+    {
+        "zona":  "REFRIGERACION_I",
+        "codigo":  "I0010",
+        "x":  3,
+        "y":  4,
+        "bloque":  1
+    },
+    {
+        "zona":  "REFRIGERACION_I",
+        "codigo":  "I0011",
+        "x":  3,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "REFRIGERACION_I",
+        "codigo":  "I0012",
+        "x":  3,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "REFRIGERACION_I",
+        "codigo":  "I0013",
+        "x":  3,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "REFRIGERACION_J",
+        "codigo":  "J0104",
+        "x":  1,
+        "y":  4,
+        "bloque":  1
+    },
+    {
+        "zona":  "REFRIGERACION_J",
+        "codigo":  "J0103",
+        "x":  1,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "REFRIGERACION_J",
+        "codigo":  "J0102",
+        "x":  1,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "REFRIGERACION_J",
+        "codigo":  "J0101",
+        "x":  1,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "REFRIGERACION_J",
+        "codigo":  "J0201",
+        "x":  3,
+        "y":  5,
+        "bloque":  1
+    },
+    {
+        "zona":  "REFRIGERACION_J",
+        "codigo":  "J0202",
+        "x":  4,
+        "y":  5,
+        "bloque":  1
+    },
+    {
+        "zona":  "REFRIGERACION_J",
+        "codigo":  "J0301",
+        "x":  3,
+        "y":  4,
+        "bloque":  1
+    },
+    {
+        "zona":  "REFRIGERACION_J",
+        "codigo":  "J0302",
+        "x":  4,
+        "y":  4,
+        "bloque":  1
+    },
+    {
+        "zona":  "REFRIGERACION_J",
+        "codigo":  "J0401",
+        "x":  3,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "REFRIGERACION_J",
+        "codigo":  "J0402",
+        "x":  4,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "REFRIGERACION_J",
+        "codigo":  "J0501",
+        "x":  3,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "REFRIGERACION_J",
+        "codigo":  "J0502",
+        "x":  4,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "REFRIGERACION_J",
+        "codigo":  "J0601",
+        "x":  3,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "REFRIGERACION_J",
+        "codigo":  "J0602",
+        "x":  4,
+        "y":  1,
+        "bloque":  1
+    }
+]

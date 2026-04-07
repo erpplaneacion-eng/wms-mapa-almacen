@@ -1,0 +1,24 @@
+{
+    "files":  [
+                  "data/base.json",
+                  "data/ubicacion_piso_k_parte_1.json",
+                  "data/ubicacion_piso_k_parte_2.json",
+                  "data/ubicacion_piso_k_parte_3.json",
+                  "data/ubicacion_piso_k_parte_4.json",
+                  "data/ubicacion_piso_l_parte_1.json",
+                  "data/ubicacion_piso_l_parte_2.json",
+                  "data/ubicacion_piso_l_parte_3.json",
+                  "data/ubicacion_piso_l_parte_4.json",
+                  "data/ubicacion_piso_l_parte_5.json",
+                  "data/ubicacion_piso_l_parte_6.json",
+                  "data/ubicacion_piso_m_parte_1.json",
+                  "data/ubicacion_piso_m_parte_2.json",
+                  "data/ubicacion_piso_m_parte_3.json",
+                  "data/ubicacion_piso_m_parte_4.json",
+                  "data/ubicacion_piso_n_parte_1.json",
+                  "data/ubicacion_piso_n_parte_2.json",
+                  "data/ubicacion_piso_n_parte_3.json",
+                  "data/ubicacion_piso_n_parte_4.json",
+                  "data/ubicacion_piso_n_parte_5.json"
+              ]
+}

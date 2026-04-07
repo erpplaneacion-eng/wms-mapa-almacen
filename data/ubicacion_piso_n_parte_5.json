@@ -1,0 +1,107 @@
+[
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N2101",
+        "x":  21,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N2201",
+        "x":  22,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N2301",
+        "x":  23,
+        "y":  1,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N2102",
+        "x":  21,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N2202",
+        "x":  22,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N2302",
+        "x":  23,
+        "y":  2,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N2103",
+        "x":  21,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N2203",
+        "x":  22,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N2303",
+        "x":  23,
+        "y":  3,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N2104",
+        "x":  21,
+        "y":  4,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N2204",
+        "x":  22,
+        "y":  4,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N2304",
+        "x":  23,
+        "y":  4,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N2105",
+        "x":  21,
+        "y":  5,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N2205",
+        "x":  22,
+        "y":  5,
+        "bloque":  1
+    },
+    {
+        "zona":  "UBICACION_PISO_N",
+        "codigo":  "N2305",
+        "x":  23,
+        "y":  5,
+        "bloque":  1
+    }
+]
