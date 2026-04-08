@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjetas de Codigos - CHVS</title>
+    <link rel="icon" type="image/png" href="corporacion-hacia-una-valle-solidaria-logo-x2.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+    <style>
+        :root {
+            --chvs-green: #059669;
+            --chvs-green-dark: #047857;
+            --chvs-blue: #175e82;
+        }
+
+        body {
+            background: #f1f5f9;
+        }
+
+        .card-sheet {
+            width: 11in;
+            min-height: 8.5in;
+            margin: 0 auto 18px auto;
+            background: #fff;
+            box-shadow: 0 10px 26px rgba(15, 23, 42, 0.12);
+            border-radius: 10px;
+            padding: 8mm;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 5mm;
+        }
+
+        .tarjeta {
+            position: relative;
+            border: 4px solid var(--chvs-green);
+            border-radius: 14px;
+            background: #fff;
+            padding: 8px 8px 36px 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .tarjeta h2 {
+            margin: 0 0 8px 0;
+            color: var(--chvs-green-dark);
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .tarjeta svg {
+            width: 100%;
+            max-height: 62px;
+        }
+
+        .tarjeta-logo {
+            position: absolute;
+            right: 10px;
+            bottom: 8px;
+            width: 52px;
+            opacity: 0.9;
+        }
+
+        @page {
+            size: letter landscape;
+            margin: 8mm;
+        }
+
+        @media print {
+            body {
+                background: #fff !important;
+                margin: 0 !important;
+            }
+
+            .hide-print {
+                display: none !important;
+            }
+
+            #contenedor-hojas {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            .card-sheet {
+                width: auto !important;
+                min-height: calc(8.5in - 16mm) !important;
+                margin: 0 !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                padding: 0 !important;
+                break-after: page;
+                page-break-after: always;
+            }
+
+            .card-sheet:last-child {
+                break-after: auto;
+                page-break-after: auto;
+            }
+
+            .tarjeta {
+                border-width: 3px;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <header class="hide-print bg-[var(--chvs-blue)] text-white p-4 shadow-md">
+        <div class="max-w-6xl mx-auto flex flex-wrap gap-3 items-center justify-between">
+            <h1 class="text-2xl font-bold">Tarjetas de Codigos para Impresion</h1>
+            <div class="flex gap-2">
+                <a href="index.html" class="bg-slate-100 text-slate-900 px-3 py-2 rounded-md font-semibold text-sm hover:bg-white">Volver al mapa</a>
+                <button id="btn-imprimir" class="bg-emerald-500 hover:bg-emerald-600 px-3 py-2 rounded-md font-semibold text-sm">Imprimir</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto p-4 md:p-6">
+        <p class="hide-print text-sm text-slate-600 mb-4">
+            Formato: hoja carta horizontal, 16 tarjetas por pagina (4x4), borde verde y logo CHVS en esquina inferior derecha.
+        </p>
+        <section id="contenedor-hojas"></section>
+    </main>
+
+    <script>
+        const CODIGOS_TARJETAS = `
+A010301
+A010302
+A020301
+A020302
+A030301
+A030302
+A040301
+A040302
+A050301
+A050302
+A060301
+A060302
+A070301
+A070302
+A080301
+A080302
+A090301
+A090302
+A100301
+A100302
+B010301
+B010302
+B020301
+B020302
+B030301
+B030302
+B040301
+B040302
+B050301
+B050302
+B060301
+B060302
+B070301
+B070302
+B080301
+B080302
+B090301
+B090302
+B100301
+B100302
+C010301
+C010303
+C010302
+C010304
+C020301
+C020303
+C020302
+C020304
+C030301
+C030303
+C030302
+C030304
+C040301
+C040303
+C040302
+C040304
+C050301
+C050303
+C050302
+C050304
+C060301
+C060303
+C060302
+C060304
+C070301
+C070303
+C070302
+C070304
+C080301
+C080303
+C080302
+C080304
+C090301
+C090303
+C090302
+C090304
+C100301
+C100303
+C100302
+C100304
+D010301
+D010303
+D010302
+D010304
+D020301
+D020303
+D020302
+D020304
+D030301
+D030303
+D030302
+D030304
+D040301
+D040303
+D040302
+D040304
+D050301
+D050303
+D050302
+D050304
+D060301
+D060303
+D060302
+D060304
+D070301
+D070303
+D070302
+D070304
+D080301
+D080303
+D080302
+D080304
+D090301
+D090303
+D090302
+D090304
+D100301
+D100303
+D100302
+D100304
+A010401
+A010402
+A020401
+A020402
+A030401
+A030402
+A040401
+A040402
+A050401
+A050402
+A060401
+A060402
+A070401
+A070402
+A080401
+A080402
+A090401
+A090402
+A100401
+A100402
+B010401
+B010402
+B020401
+B020402
+B030401
+B030402
+B040401
+B040402
+B050401
+B050402
+B060401
+B060402
+B070401
+B070402
+B080401
+B080402
+B090401
+B090402
+B100401
+B100402
+C010401
+C010403
+C010402
+C010404
+C020401
+C020403
+C020402
+C020404
+C030401
+C030403
+C030402
+C030404
+C040401
+C040403
+C040402
+C040404
+C050401
+C050403
+C050402
+C050404
+C060401
+C060403
+C060402
+C060404
+C070401
+C070403
+C070402
+C070404
+C080401
+C080403
+C080402
+C080404
+C090401
+C090403
+C090402
+C090404
+C100401
+C100403
+C100402
+C100404
+D010401
+D010403
+D010402
+D010404
+D020401
+D020403
+D020402
+D020404
+D030401
+D030403
+D030402
+D030404
+D040401
+D040403
+D040402
+D040404
+D050401
+D050403
+D050402
+D050404
+D060401
+D060403
+D060402
+D060404
+D070401
+D070403
+D070402
+D070404
+D080401
+D080403
+D080402
+D080404
+D090401
+D090403
+D090402
+D090404
+D100401
+D100403
+D100402
+D100404
+`;
+
+        function limpiarCodigos(raw) {
+            return raw
+                .split(/\r?\n/)
+                .map((linea) => linea.trim())
+                .filter(Boolean);
+        }
+
+        function crearTarjeta(codigo) {
+            const card = document.createElement('article');
+            card.className = 'tarjeta';
+
+            const titulo = document.createElement('h2');
+            titulo.textContent = codigo;
+
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('aria-label', `Codigo de barras ${codigo}`);
+
+            const logo = document.createElement('img');
+            logo.className = 'tarjeta-logo';
+            logo.src = 'corporacion-hacia-una-valle-solidaria-logo-x2.png';
+            logo.alt = 'CHVS';
+
+            card.appendChild(titulo);
+            card.appendChild(svg);
+            card.appendChild(logo);
+
+            JsBarcode(svg, codigo, {
+                format: 'CODE128',
+                width: 2.8,
+                height: 108,
+                fontSize: 26,
+                fontOptions: 'bold',
+                textMargin: 5,
+                margin: 0,
+                displayValue: true
+            });
+
+            return card;
+        }
+
+        function renderHojas(codigos) {
+            const contenedor = document.getElementById('contenedor-hojas');
+            contenedor.innerHTML = '';
+
+            const porHoja = 16;
+            for (let i = 0; i < codigos.length; i += porHoja) {
+                const hoja = document.createElement('section');
+                hoja.className = 'card-sheet';
+
+                codigos.slice(i, i + porHoja).forEach((codigo) => {
+                    hoja.appendChild(crearTarjeta(codigo));
+                });
+
+                contenedor.appendChild(hoja);
+            }
+        }
+
+        document.getElementById('btn-imprimir').addEventListener('click', () => window.print());
+
+        renderHojas(limpiarCodigos(CODIGOS_TARJETAS));
+    </script>
+</body>
+</html>
