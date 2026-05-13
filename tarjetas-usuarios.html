@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjetas de Usuarios - CHVS</title>
+    <link rel="icon" type="image/png" href="corporacion-hacia-una-valle-solidaria-logo-x2.png">
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+    <style>
+        :root {
+            --chvs-blue: #175e82;
+            --chvs-blue-dark: #0f3f59;
+            --chvs-green: #059669;
+            --chvs-green-dark: #047857;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: #f1f5f9;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        /* ── HEADER (pantalla) ── */
+        header {
+            background: var(--chvs-blue);
+            color: #fff;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+        }
+        header h1 { font-size: 1.25rem; font-weight: 700; }
+        .btn-nav {
+            background: #fff2;
+            color: #fff;
+            border: 1px solid #fff4;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .btn-nav:hover { background: #fff3; }
+        .btn-print {
+            background: var(--chvs-green);
+            border-color: var(--chvs-green-dark);
+        }
+        .btn-print:hover { background: var(--chvs-green-dark); }
+
+        .info-pantalla {
+            max-width: 960px;
+            margin: 14px auto 0;
+            padding: 0 16px;
+            font-size: 0.82rem;
+            color: #475569;
+        }
+
+        /* ── HOJAS ── */
+        #contenedor-hojas {
+            max-width: 960px;
+            margin: 12px auto 32px;
+            padding: 0 16px;
+        }
+
+        .card-sheet {
+            width: 100%;
+            background: #fff;
+            box-shadow: 0 6px 24px rgba(15,23,42,0.1);
+            border-radius: 10px;
+            padding: 8mm;
+            margin-bottom: 18px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: auto;
+            gap: 6mm;
+        }
+
+        /* ── TARJETA ── */
+        .tarjeta {
+            border: 3px solid var(--chvs-green);
+            border-radius: 10px;
+            background: #fff;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Encabezado de tarjeta */
+        .tarjeta-header {
+            background: var(--chvs-green);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 5px 8px;
+        }
+        .tarjeta-header img {
+            width: 34px;
+            height: auto;
+            flex-shrink: 0;
+            opacity: 1;
+        }
+        .tarjeta-header span {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        /* Secciones de código */
+        .tarjeta-body {
+            padding: 6px 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1;
+        }
+
+        .codigo-bloque {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .codigo-bloque + .codigo-bloque {
+            border-top: 1.5px dashed #cbd5e1;
+            padding-top: 6px;
+        }
+
+        .codigo-label {
+            font-size: 0.55rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #64748b;
+        }
+
+        .codigo-bloque.usuario .codigo-label { color: var(--chvs-green-dark); }
+        .codigo-bloque.password .codigo-label { color: var(--chvs-green-dark); }
+
+        .codigo-bloque.usuario svg { border-bottom: 1.5px solid #e2e8f0; }
+        .codigo-bloque.password svg { border-bottom: 1.5px solid #e2e8f0; }
+
+        .codigo-bloque svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .codigo-texto {
+            font-size: 0.6rem;
+            font-weight: 700;
+            color: #1e293b;
+            word-break: break-all;
+            text-align: center;
+            padding: 1px 2px 2px;
+        }
+        .codigo-bloque.usuario .codigo-texto { color: var(--chvs-green-dark); }
+        .codigo-bloque.password .codigo-texto { color: var(--chvs-green-dark); }
+
+        /* ── IMPRESIÓN ── */
+        @page {
+            size: letter landscape;
+            margin: 8mm;
+        }
+
+        @media print {
+            body { background: #fff !important; }
+
+            header,
+            .info-pantalla { display: none !important; }
+
+            #contenedor-hojas {
+                max-width: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            .card-sheet {
+                width: auto !important;
+                margin: 0 !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                padding: 0 !important;
+                break-after: page;
+                page-break-after: always;
+            }
+            .card-sheet:last-child {
+                break-after: auto;
+                page-break-after: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hide-print">
+        <h1>Tarjetas de Usuarios WMS — CHVS</h1>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <a href="index.html" class="btn-nav">Mapa de Almacén</a>
+            <a href="tarjetas-codigos.html" class="btn-nav">Tarjetas de Códigos</a>
+            <button class="btn-nav btn-print" onclick="window.print()">Imprimir</button>
+        </div>
+    </header>
+
+    <p class="info-pantalla hide-print">
+        Formato: carta horizontal · 9 tarjetas por hoja (3×3) · cada tarjeta incluye código de barras del usuario y de la contraseña.
+    </p>
+
+    <main id="contenedor-hojas"></main>
+
+    <script>
+        const USUARIOS = [
+            { usuario: "LLOGISTICO",                  password: "Chvs1234"     },
+            { usuario: "JCASTRO-vallesolidario",      password: "Azul2023"     },
+            { usuario: "JCONTRERAS-vallesolidario",   password: "Jcontreras1"  },
+            { usuario: "AINVENTARIOS-vallesolidario", password: "Chvs1234"     },
+            { usuario: "INVENTARIOS1-vallesolidario", password: "Chvs1234"     },
+            { usuario: "INVENTARIOS2-vallesolidario", password: "Chvs1234"     },
+            { usuario: "INVENTARIOS3-vallesolidario", password: "Chvs1234"     },
+            { usuario: "INVENTARIOS4-vallesolidario", password: "Chvs1234"     },
+            { usuario: "INVENTARIOS5-vallesolidario", password: "Chvs1234"     },
+            { usuario: "INVENTARIOS6-vallesolidario", password: "Chvs1234"     },
+            { usuario: "INVENTARIOS7-vallesolidario", password: "Chvs1234"     },
+            { usuario: "SLOGISTICO-vallesolidario",   password: "Chvs1234"     },
+            { usuario: "LEMPAQUE-vallesolidario",     password: "Chvs1234"     },
+            { usuario: "LRFRUVER-vallesolidario",     password: "Chvs1234"     },
+            { usuario: "EMPAQUE1-vallesolidario",     password: "Chvs1234"     },
+            { usuario: "EMPAQUE2-vallesolidario",     password: "Chvs1234"     },
+            { usuario: "EMPAQUE3-vallesolidario",     password: "Chvs1234"     },
+            { usuario: "EMPAQUE4-vallesolidario",     password: "Chvs1234"     },
+            { usuario: "EMPAQUE5-vallesolidario",     password: "Chvs1234"     },
+            { usuario: "EMPAQUE6-vallesolidario",     password: "Chvs1234"     },
+            { usuario: "EMPAQUE7-vallesolidario",     password: "Chvs1234"     },
+            { usuario: "EMPAQUE8-vallesolidario",     password: "Chvs1234"     },
+            { usuario: "EMPAQUE9-vallesolidario",     password: "Chvs1234"     },
+            { usuario: "EMPAQUE10-vallesolidario",    password: "Chvs1234"     },
+            { usuario: "EMPAQUE11-vallesolidario",    password: "Chvs1234"     },
+            { usuario: "EMPAQUE12-vallesolidario",    password: "Chvs1234"     },
+            { usuario: "SDESPACHO-vallesolidario",    password: "Chvs1234"     },
+            { usuario: "DESPACHO1-vallesolidario",    password: "Chvs1234"     },
+            { usuario: "DESPACHO2-vallesolidario",    password: "Chvs1234"     },
+            { usuario: "DESPACHO3-vallesolidario",    password: "Chvs1234"     },
+            { usuario: "DESPACHO4-vallesolidario",    password: "Chvs1234"     },
+            { usuario: "DESPACHO5-vallesolidario",    password: "Chvs1234"     },
+            { usuario: "DESPACHO6-vallesolidario",    password: "Chvs1234"     },
+            { usuario: "STRANSPORTE-vallesolidario",  password: "Chvs1234"     },
+            { usuario: "SCALIDAD1-vallesolidario",    password: "Chvs1234"     },
+            { usuario: "APLANEACION1-vallesolidario", password: "Chvs1234"     },
+        ];
+
+        function crearSVG() {
+            return document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        }
+
+        function crearTarjeta(data) {
+            const card = document.createElement('article');
+            card.className = 'tarjeta';
+
+            // Encabezado
+            const header = document.createElement('div');
+            header.className = 'tarjeta-header';
+            const logoImg = document.createElement('img');
+            logoImg.src = 'CHVS_SOLO_MANITOS.png';
+            logoImg.alt = 'CHVS';
+            const titulo = document.createElement('span');
+            titulo.textContent = 'Credencial WMS · CHVS';
+            header.appendChild(logoImg);
+            header.appendChild(titulo);
+            card.appendChild(header);
+
+            // Cuerpo
+            const body = document.createElement('div');
+            body.className = 'tarjeta-body';
+
+            // Bloque usuario
+            const bloqueU = document.createElement('div');
+            bloqueU.className = 'codigo-bloque usuario';
+            const labelU = document.createElement('div');
+            labelU.className = 'codigo-label';
+            labelU.textContent = 'Usuario';
+            const svgU = crearSVG();
+            const textoU = document.createElement('div');
+            textoU.className = 'codigo-texto';
+            textoU.textContent = data.usuario;
+            bloqueU.appendChild(labelU);
+            bloqueU.appendChild(svgU);
+            bloqueU.appendChild(textoU);
+
+            // Bloque contraseña
+            const bloqueP = document.createElement('div');
+            bloqueP.className = 'codigo-bloque password';
+            const labelP = document.createElement('div');
+            labelP.className = 'codigo-label';
+            labelP.textContent = 'Contraseña';
+            const svgP = crearSVG();
+            const textoP = document.createElement('div');
+            textoP.className = 'codigo-texto';
+            textoP.textContent = data.password;
+            bloqueP.appendChild(labelP);
+            bloqueP.appendChild(svgP);
+            bloqueP.appendChild(textoP);
+
+            body.appendChild(bloqueU);
+            body.appendChild(bloqueP);
+            card.appendChild(body);
+
+            // Generar barcodes después de insertar en DOM (necesita dimensiones)
+            requestAnimationFrame(() => {
+                try {
+                    JsBarcode(svgU, data.usuario, {
+                        format: 'CODE128',
+                        width: 1.2,
+                        height: 36,
+                        fontSize: 0,
+                        margin: 2,
+                        displayValue: false
+                    });
+                } catch(e) {
+                    svgU.parentElement.insertAdjacentHTML('beforeend',
+                        '<div style="font-size:0.55rem;color:#ef4444;text-align:center">Error barcode</div>');
+                }
+                try {
+                    JsBarcode(svgP, data.password, {
+                        format: 'CODE128',
+                        width: 1.6,
+                        height: 36,
+                        fontSize: 0,
+                        margin: 2,
+                        displayValue: false
+                    });
+                } catch(e) {
+                    svgP.parentElement.insertAdjacentHTML('beforeend',
+                        '<div style="font-size:0.55rem;color:#ef4444;text-align:center">Error barcode</div>');
+                }
+            });
+
+            return card;
+        }
+
+        function renderHojas() {
+            const contenedor = document.getElementById('contenedor-hojas');
+            const porHoja = 9;
+
+            for (let i = 0; i < USUARIOS.length; i += porHoja) {
+                const hoja = document.createElement('section');
+                hoja.className = 'card-sheet';
+
+                USUARIOS.slice(i, i + porHoja).forEach(u => {
+                    hoja.appendChild(crearTarjeta(u));
+                });
+
+                contenedor.appendChild(hoja);
+            }
+        }
+
+        renderHojas();
+    </script>
+</body>
+</html>
