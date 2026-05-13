@@ -299,12 +299,8 @@
             labelP.className = 'codigo-label';
             labelP.textContent = 'Contraseña';
             const svgP = crearSVG();
-            const textoP = document.createElement('div');
-            textoP.className = 'codigo-texto';
-            textoP.textContent = data.password;
             bloqueP.appendChild(labelP);
             bloqueP.appendChild(svgP);
-            bloqueP.appendChild(textoP);
 
             body.appendChild(bloqueU);
             body.appendChild(bloqueP);
